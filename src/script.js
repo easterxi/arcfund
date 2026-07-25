@@ -842,6 +842,7 @@ if (userAddress) {
         );
 }
 
+/*
     if (campaigns.length === 0) {
 
         campaignList.innerHTML = `
@@ -858,7 +859,11 @@ if (userAddress) {
 
         return;
     }
+*/
 
+    let displayedCount = 0;
+    let nomere = 0;
+    
     for (const campaignAddress of campaigns) {
 
         const campaign = new ethers.Contract(
@@ -867,33 +872,11 @@ if (userAddress) {
             provider
         );
 
-console.log("Campaign address:", campaignAddress);
-
-console.log(
-    campaign.interface.fragments.map(
-        f => f.name
-    )
-);
+nomere++;
 
 const network = await provider.getNetwork();
 
-console.log("Current chain ID:", network.chainId.toString());
-
-console.log("Factory:", FACTORY_ADDRESS);
-
-console.log("Campaign:", campaignAddress);
-
 const details = await campaign.getDetails();
-
-console.log(details);
-
-console.log(CAMPAIGN_ABI);
-
-console.log("ethers version:", ethers.version);
-
-console.log(provider);
-
-console.log(window.ethereum);
 
 const now = Math.floor(
     Date.now() / 1000
@@ -1018,21 +1001,32 @@ function formatUSDC(value) {
 const currentformated = formatUSDC(current);
 const targetformated = formatUSDC(target);
 
+if (displayedCount > 0) {
+
+    campaignList.innerHTML += `
+
+<div style="height:10px;"></div>
+
+`;
+
+}
+
         campaignList.innerHTML += `
 
             <div class="campaign-card">
 
-<div class="readonly2" style="text-align:center;">
-    { category • ${category} }
-</div>
+      <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
+        🔸 category • <span>${category}</span>
+      </div>
 
       <div class="readonly2" style="text-align:center;">
         { ${title} }</span>
       </div>
 
-      <div class="readonly2" style="text-align:center;">
-        ${currentformated} ○ ${targetformated} ● USDC</span>
+      <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
+        🔸 target • <span>${currentformated} ○ ${targetformated} ● USDC</span>
       </div>
+
 <div id="fund-campaign-button" class="flex-row">
   <button
     class="btn_op_rev2" style="font-size:1.1rem;"
@@ -1044,7 +1038,42 @@ const targetformated = formatUSDC(target);
             </div>
 
         `;
+
+        displayedCount++;
+
     }
+
+    if (displayedCount === 0) {
+
+    campaignList.innerHTML = `
+
+<div style="height:10px;"></div>
+
+<div class="readonly2X"
+     style="text-align:center; opacity:1; font-size:1.8rem;">
+{ no campaign }
+</div>
+
+<div style="height:0px;"></div>
+
+`;
+
+} else {
+
+    campaignList.innerHTML += `
+
+<div style="height:10px;"></div>
+
+<div class="readonly2X"
+     style="text-align:center; opacity:1; font-size:1.8rem;">
+{ end of list }
+</div>
+
+<div style="height:0px;"></div>
+
+`;
+
+}
 }
 
 function setCampaignFilter(filter) {
@@ -1159,7 +1188,7 @@ function showScreen1() {
   document.getElementById('root').innerHTML = `
     <div class="container" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:0px;background:transparent;padding:0px"; padding-top:40px>
       <img src="/logo/arc_mascot_title333XXfit.png"
-           alt="deVault_mascot" 
+           alt="sumbangsih_mascot" 
            style="margin-top:40px; margin-bottom:30px; max-width:480px; width:90%; height:auto;">
       
       <div style="display:flex;flex-direction:column;gap:0px;width:100%;max-width:320px;margin-top:0px">
@@ -2738,13 +2767,17 @@ const userBalFormatted = formatUSDC(userBal);
 
 <div style="height:20px;"></div>
 
-<hr>
+<div class="divider-container" id="hr_xxxxxx1">
+  <span class="divider-icon">✦</span>
+</div>
 
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        ○ on wallet • <span id="userBalanceDisplay"> ${userBalFormatted} ● USDC</span>
+        🔸 on wallet • <span id="userBalanceDisplay"> ${userBalFormatted} ● USDC</span>
       </div>
 
-<hr>
+<div class="divider-container" id="hr_xxxxxx2">
+  <span class="divider-icon">✦</span>
+</div>
 
 <div id="batesan_xxx" style="height:10px;"></div>
 
@@ -2758,7 +2791,9 @@ const userBalFormatted = formatUSDC(userBal);
 
 <div id="batesan_xxx2" style="height:10px;"></div>
 
-<hr id="hr_xxx">
+<div class="divider-container" id="hr_xxx">
+  <span class="divider-icon">✦</span>
+</div>
 
       <div id="campaign-titletitle" class="readonly2X" style="font-size:1.8rem; text-align:center;">
               <div style="height:0px;"></div>
@@ -2775,25 +2810,9 @@ const userBalFormatted = formatUSDC(userBal);
         { create new campaign }</span>
       </div>
 
-      <hr>
-      <div style="height:20px;"></div>
-
-    <div id="category3">
-    <div class="flex-row">
-    <div 
-      class="readonly2" style="font-size:1.1rem; flex: 1;"
-    >
-      ○ category •
-    </div>
-
-    <button id="showcategorybutton"
-      class="btn_op_rev2" style="font-size:1.1rem; margin-left: 23px;"
-      onclick="showCategorylist()"
-    >
-      general
-    </button>
-    </div>
-    </div>
+      <div class="divider-container" id="hr_xxxxxx3">
+        <span class="divider-icon">✦</span>
+      </div>
 
       <div style="display:flex; flex-direction: column; align-items:center; gap:10px; margin:10px 0 6px 0;">
         <input type="text"
@@ -2822,7 +2841,7 @@ const userBalFormatted = formatUSDC(userBal);
         value=""
         style="flex:50%; text-align:center; border-radius: 0px; margin-left: margin-right: 120px;"
         >
-
+    
 <textarea 
   placeholder="describe it"
   id="campaign-description"
@@ -2831,7 +2850,27 @@ const userBalFormatted = formatUSDC(userBal);
   maxlength="235"
   style="flex: 50%; text-align: center; border-radius: 25px;overflow: hidden; resize: none;"
 ></textarea>
+        </div>
 
+    <div style="height:20px;"></div>
+    <div id="category3">
+    <div class="flex-row">
+    <div 
+      class="readonly2" style="font-size:1.1rem; flex: 1;"
+    >
+      🔸 category •
+    </div>
+
+    <button id="showcategorybutton"
+      class="btn_op_rev2" style="font-size:1.1rem; margin-left: 23px;"
+      onclick="showCategorylist()"
+    >
+      general
+    </button>
+    </div>
+    </div>
+    
+      <div style="display:flex; flex-direction: column; align-items:center; gap:10px; margin:10px 0 6px 0;">    
       <div class="readonly2" style="font-size:1.3rem; text-align:center;">
         start ○ end date.</span>
       </div>
@@ -2882,20 +2921,24 @@ const userBalFormatted = formatUSDC(userBal);
         { <span id="detail-title"></span> }
       </div>
 
-      <hr>
+      <div class="divider-container" id="hr_xxxxxx4">
+        <span class="divider-icon">✦</span>
+      </div>
       <div class="readonly2" style="text-align:center;">
         <span id="detail-description"></span>
       </div>
-      <hr>
+      <div class="divider-container" id="hr_xxxxxx5">
+        <span class="divider-icon">✦</span>
+      </div>
       
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        ○ goal • <span> <span id="detail-raised"></span> ○ <span id="detail-goal"></span> </span>
+        🔸 target • <span> <span id="detail-raised"></span> ○ <span id="detail-goal"></span> ● USDC</span>
       </div>
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        ○ created by • <span id="detail-creator"></span>
+        🔸 created by • <span id="detail-creator"></span>
       </div>
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        ○ end at • <span id="detail-deadline"></span>
+        🔸 end at • <span id="detail-deadline"></span>
       </div>
 
       <div style="display:flex; flex-direction: column; align-items:center; gap:10px; margin:10px 0 6px 0;">
@@ -2946,7 +2989,9 @@ const userBalFormatted = formatUSDC(userBal);
 </div>
 <!-- CAMPAIGN DETAILS -->
 
-<hr id="hr_xxx3" style="height: 10px; background-color: black; border: none;">
+<div class="divider-container" id="hr_xxx3">
+  <span class="divider-icon">✦</span>
+</div>
 <div id="batesan_xxx5" style="height:10px;"></div>
 
 <!-- <div style="height:20px;"></div> -->
@@ -2956,7 +3001,7 @@ const userBalFormatted = formatUSDC(userBal);
     <div 
       class="readonly2" style="font-size:1.1rem; flex: 1;"
     >
-      ○ category filter •
+      🔸 category filter •
     </div>
     <button id="showcategorybuttonfilter"
       class="btn_op_rev2" style="font-size:1.1rem; margin-left: 23px;"
@@ -2972,7 +3017,7 @@ const userBalFormatted = formatUSDC(userBal);
     <div 
       class="readonly2" style="font-size:1.1rem; flex: 1;"
     >
-      ○ status filter •
+      🔸 status filter •
     </div>
     <button id="showcampaignbuttonfilter"
       class="btn_op_rev2" style="font-size:1.1rem; margin-left: 23px;"
@@ -2984,9 +3029,12 @@ const userBalFormatted = formatUSDC(userBal);
     </div>
 
 <div id="batesan_xxx3" style="height:10px;"></div>
-<hr id="hr_xxx4">
 
-<div id="batesan_xxx4" style="height:10px;"></div>
+<div class="divider-container" id="hr_xxx4">
+  <span class="divider-icon">✦</span>
+</div>
+
+<div id="batesan_xxx4" style="height:0px;"></div>
 
 <div id="activeSection">
 <!-- active html here -->
@@ -3500,13 +3548,13 @@ function formatUSDC(value) {
 <hr>
 
       <div class="inputan" style="display:flex; justify-content:space-between; align-items:center;">
-        ○ on wallet • <span id="userBalanceDisplay"> ${userBalFormatted} ● USDC</span>
+        🔸 on wallet • <span id="userBalanceDisplay"> ${userBalFormatted} ● USDC</span>
       </div>
       <div class="readonly3" style="display:flex; justify-content:space-between; align-items:center;">
-        ○ on vault • <span id="systemBalanceDisplay"> ${systemBalXFormatted} ● USDC</span>
+        🔸 on vault • <span id="systemBalanceDisplay"> ${systemBalXFormatted} ● USDC</span>
       </div>
       <div class="readonly3" style="display:flex; justify-content:space-between; align-items:center;">
-        ○ available on vault • <span id="systemBalanceDisplayLiq"> ${systemBalXXFormatted} ● USDC</span>
+        🔸 available on vault • <span id="systemBalanceDisplayLiq"> ${systemBalXXFormatted} ● USDC</span>
       </div>
 
 <hr>
@@ -3546,7 +3594,7 @@ function formatUSDC(value) {
       
       <div style="display:flex; align-items:center; gap:10px; margin:10px 0 6px 0;">
         <div class="readonly3" style="flex: 50%; text-align:left;" margin-left: 120px;>
-         ○ how much? •
+         🔸 how much? •
         </div>
         <input type="text"
         inputmode="numeric"
@@ -3556,7 +3604,7 @@ function formatUSDC(value) {
       </div>
       <div style="display:none; align-items:center; gap:10px; margin:10px 0 6px 0;">
         <div class="readonly3" style="flex: 50%; text-align:left;" margin-left: 120px;>
-         ○ click to copy the key •
+         🔸 click to copy the key •
         </div>
         <input type="text" id="livePrice111key" class="inputan_readonly" value="" style="display:none; flex:50%; text-align:center; border-radius: 0px; margin-left: margin-right: 120px;">
       </div>
@@ -3592,10 +3640,10 @@ function formatUSDC(value) {
 
       <div style="display:flex; align-items:center; gap:10px; margin:10px 0 6px 0;">
         <div class="readonly3" style="flex: 50%; text-align:center;">
-         ○ ticket id •
+         🔸 ticket id •
         </div>
         <div class="readonly3" style="flex: 50%; text-align:center;">
-         ○ fund ticket •
+         🔸 fund ticket •
         </div>
       </div>
 
@@ -3672,13 +3720,13 @@ function formatUSDC(value) {
       
       <div style="display:flex; align-items:center; gap:10px; margin:10px 0 6px 0;">
         <div class="readonly3" style="flex: 50%; text-align:left;" margin-left: 120px;>
-         ○ input/paste key •
+         🔸 input/paste key •
         </div>
         <input type="text" id="livePrice111keyWD" class="inputan" placeholder="0x0000" value="" style="flex:50%; text-align:center; border-radius: 0px; margin-left: margin-right: 120px;">
       </div>
       <div style="display:flex; align-items:center; gap:10px; margin:10px 0 6px 0;">
         <div class="readonly3" style="flex: 50%; text-align:left;" margin-left: 120px;>
-         ○ how much? •
+         🔸 how much? •
         </div>
         <input type="text"
         inputmode="numeric"
@@ -5490,7 +5538,7 @@ async function disconnectWallet() {
 }
 
 async function revokeAllConnections() {
-  //if (!confirm("⚠️ Doing this will revoke your wallet connection from deVault.\n\nContinue?")) {
+  //if (!confirm("⚠️ Doing this will revoke your wallet connection from {sumbangsih}.\n\nContinue?")) {
     //return;
   //}
 
@@ -5518,9 +5566,9 @@ async function revokeAllConnections() {
     if (livePriceInterval) clearInterval(livePriceInterval);
     if (balanceInterval) clearInterval(balanceInterval);
 
-    //alert("✅ Wallet revoked from deVault.");
+    //alert("✅ Wallet revoked from {sumbangsih}.");
     showToast(
-    "✅ Wallet revoked from deVault.",
+    "✅ Wallet revoked from {sumbangsih}.",
     3000,
     0
     );
@@ -5817,8 +5865,8 @@ async function showHistory() {
       font-weight:normal;
     "
   >
-    <span>○ ${new Date(d.timestamp * 1000).toLocaleString()}</span>
-    <span>○ ${d.amount} ● USDC</span>
+    <span>🔸 ${new Date(d.timestamp * 1000).toLocaleString()}</span>
+    <span>🔸 ${d.amount} ● USDC</span>
   </div>
 
 </div>
@@ -5856,8 +5904,8 @@ async function showHistory() {
       font-weight:normal;
     "
   >
-    <span>○ ${new Date(t.timestamp * 1000).toLocaleString()}</span>
-    <span>○ ${t.amount} ● USDC</span>
+    <span>🔸 ${new Date(t.timestamp * 1000).toLocaleString()}</span>
+    <span>🔸 ${t.amount} ● USDC</span>
   </div>
 
 </div>
@@ -5895,8 +5943,8 @@ async function showHistory() {
       font-weight:normal;
     "
   >
-    <span>○ ${new Date(w.timestamp * 1000).toLocaleString()}</span>
-    <span>○ ${w.amount} ● USDC</span>
+    <span>🔸 ${new Date(w.timestamp * 1000).toLocaleString()}</span>
+    <span>🔸 ${w.amount} ● USDC</span>
   </div>
 
 </div>
@@ -5975,7 +6023,7 @@ document.getElementById(
       justify-content:space-between;
     "
   >
-    <span>○ -</span>
+    <span>🔸 -</span>
     <span></span>
   </div>
 </div>
@@ -6013,7 +6061,7 @@ document.getElementById(
       justify-content:space-between;
     "
   >
-    <span>○ -</span>
+    <span>🔸 -</span>
     <span></span>
   </div>
 </div>
@@ -6051,7 +6099,7 @@ document.getElementById(
       justify-content:space-between;
     "
   >
-    <span>○ -</span>
+    <span>🔸 -</span>
     <span></span>
   </div>
 </div>

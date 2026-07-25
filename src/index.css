@@ -1118,6 +1118,26 @@ input[readonly_txt2] {
   cursor: default !important;
 }
 
+.divider-container {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+.divider-container::before,
+.divider-container::after {
+  content: "";
+  flex: 1;
+  border-bottom: 1px solid #ccc;
+}
+
+.divider-icon {
+  padding: 0 0px;
+  color: #666;
+  font-size: 16px;
+}
+
 @media (max-width: 768px) {
   .readonly {
     font-size: 16px;
