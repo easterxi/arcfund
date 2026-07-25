@@ -1080,6 +1080,13 @@ function setCampaignFilter(filter) {
 
     currentCampaignFilter = filter;
 
+    if (filter === "favorite")
+    {
+    document.getElementById('showcampaignbuttonfilter').textContent = "♥️";
+    }
+    else {
+      document.getElementById('showcampaignbuttonfilter').textContent = filter;
+    }
     document.getElementById("allCBtn").classList.remove("active");
     document.getElementById("activeCBtn").classList.remove("active");
     document.getElementById("endedCBtn").classList.remove("active");
