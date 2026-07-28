@@ -108,6 +108,13 @@ const VAULT_ABI = [
 ]
 ;
 
+function formatUSDC(value) {
+  return Number(value).toLocaleString('en-US', {
+    minimumFractionDigits: 4,
+    maximumFractionDigits: 4
+  });
+}
+
 async function loadHistory() {
 
   if (!userAddress) return;
@@ -874,7 +881,7 @@ if (userAddress) {
 
 nomere++;
 
-const network = await provider.getNetwork();
+//const network = await provider.getNetwork();
 
 const details = await campaign.getDetails();
 
@@ -990,13 +997,6 @@ if (
             details[1],
             6
         );
-        
-function formatUSDC(value) {
-  return Number(value).toLocaleString('en-US', {
-    minimumFractionDigits: 4,
-    maximumFractionDigits: 4
-  });
-}
 
 const currentformated = formatUSDC(current);
 const targetformated = formatUSDC(target);
@@ -1256,13 +1256,6 @@ window.selectAsset = (asset) => {
 window.openCampaign = async function (
     campaignAddress
 ) {
-
-function formatUSDC(value) {
-  return Number(value).toLocaleString('en-US', {
-    minimumFractionDigits: 4,
-    maximumFractionDigits: 4
-  });
-}
 
     //const provider =
         //new ethers.BrowserProvider(
@@ -2023,13 +2016,6 @@ async function refreshWithdrawAmount() {
 
   try {
 
-function formatUSDC(value) {
-  return Number(value).toLocaleString('en-US', {
-    minimumFractionDigits: 4,
-    maximumFractionDigits: 4
-  });
-}
-
     if (!userAddress) return;
 
     const secret =
@@ -2297,13 +2283,6 @@ async function showScreen2() {
   const shortAddress = userAddress ? `${userAddress.slice(0,6)}...${userAddress.slice(-4)}` : "";
 
 const userBal = await getUserBalance();
-
-function formatUSDC(value) {
-  return Number(value).toLocaleString('en-US', {
-    minimumFractionDigits: 4,
-    maximumFractionDigits: 4
-  });
-}
 
 const userBalFormatted = formatUSDC(userBal);
   
@@ -3185,13 +3164,6 @@ balanceInterval =
 async function reset_screen_balance() {
 const userBal = await getUserBalance();
 
-function formatUSDC(value) {
-  return Number(value).toLocaleString('en-US', {
-    minimumFractionDigits: 4,
-    maximumFractionDigits: 4
-  });
-}
-
 const userBalFormatted = formatUSDC(userBal);
 }
 
@@ -3327,13 +3299,6 @@ async function showScreen2NEXT() {
   //const systemBal = await getSystemBalance();
   const systemBalX = await refreshVaultBalance();
   const systemBalXX = await refreshLiquidityBalance();
-
-function formatUSDC(value) {
-  return Number(value).toLocaleString('en-US', {
-    minimumFractionDigits: 4,
-    maximumFractionDigits: 4
-  });
-}
 
   const systemBalXFormatted = formatUSDC(systemBalX);
   const systemBalXXFormatted = formatUSDC(systemBalXX);
