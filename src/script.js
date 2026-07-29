@@ -1165,7 +1165,7 @@ for (const item of campaignCache) {
             //provider
         //);
 
-nomere++;
+//nomere++;
 
 //const network = await provider.getNetwork();
 
@@ -1308,6 +1308,8 @@ if (
 const currentformated = formatUSDC(current);
 const targetformated = formatUSDC(target);
 
+nomere++;
+
 if (displayedCount > 0) {
 
     html += `
@@ -1325,7 +1327,7 @@ html += `
 >
 
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        title: <span>${title}</span>
+        <span>#${nomere}:</span><span>${title}</span>
       </div>
 
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
@@ -3031,7 +3033,7 @@ const userBalFormatted = formatUSDC(userBal);
   <div
     class="option-btn-circle" id="favCBtn" style="font-size:1.3rem;"
     onclick="setCampaignFilter('favorite')">
-    liked ♥️</span>
+    ♥️</span>
   </div>
 
   <div
@@ -5739,7 +5741,7 @@ async function getUserBalance() {
 
   return parseFloat(
     data.balance
-  ).toFixed(4);
+  ).toFixed(2);
 }
 
 async function getUserBalanceLama() {
