@@ -24,6 +24,26 @@
   gap: 30px;
 }
 
+.campaign-card {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: campaignAppear 0.4s ease forwards;
+}
+
+@keyframes campaignAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
 .hidden {
     display: none !important;
 }

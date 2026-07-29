@@ -1288,9 +1288,11 @@ if (displayedCount > 0) {
 
 }
 
-        html += `
-
-            <div class="campaign-card">
+html += `
+<div
+    class="campaign-card"
+    style="animation-delay:${Math.min(displayedCount * 0.05, 0.5)}s;"
+>
 
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
         🔸 category • <span>${category}</span>
