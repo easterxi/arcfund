@@ -300,7 +300,7 @@ if (userAddress) {
       if (actualRank === 1) {
 
         rankDisplay =
-          '🌟' //`<img src="/logo/arc_logo_small2_opaq2.png" width="28">`
+          '🌟' //`<img src="/logo/n_arc_logo_small2.png" width="28">`
 
       } else if (
         actualRank === 2

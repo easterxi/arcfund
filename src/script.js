@@ -72,6 +72,7 @@ let hargawisfixtenanan = 0;
 let hargaisehjalan = 0;
 
 let selectedChain = CONFIG.defaultChain;
+let selectedChainX = CONFIG.defaultChain;
 //let selectedChain = "arc-testnet";   // default
 let jenengechain = "MBOH";
 
@@ -82,6 +83,7 @@ let theselectedChain;
 let thesigner;
 let favoriteCampaigns = [];
 let campaignCache = [];
+let currentSearch = "";
 
 let selectedCategory = "general";
 let selectedCategory2 = "general";
@@ -808,6 +810,8 @@ async function refreshCampaignCache() {
   
   closeAllToasts();
 
+  showLoading()
+
     //const provider = new ethers.BrowserProvider(
         //window.ethereum
     //);
@@ -890,6 +894,7 @@ if (userAddress) {
 }
 
 loadCampaigns();
+hideLoading()
 
 /*
     if (campaigns.length === 0) {
@@ -1169,6 +1174,31 @@ nomere++;
 const creator = details[0];
 const category = details[9];
 
+const title = details[5];
+const description = details[6];
+
+const searchText =
+
+    (
+        title +
+        " " +
+        description +
+        " " +
+        creator
+    ).toLowerCase();
+
+if (
+
+    currentSearch !== "" &&
+
+    !searchText.includes(currentSearch)
+
+) {
+
+    continue;
+
+}
+
 const targetAmount = Number(
     ethers.formatUnits(
         details[1],
@@ -1263,7 +1293,7 @@ if (
     continue;
 }
 
-        const title = details[5];
+        //const title = details[5];
 
         const current = ethers.formatUnits(
             details[2],
@@ -1355,6 +1385,14 @@ html += `
 }
 
 campaignList.innerHTML = html;
+
+const cards = document.querySelectorAll(".campaign-card");
+
+cards.forEach((card, index) => {
+
+    card.style.animationDelay = `${index * 80}ms`;
+
+});
 
 }
 
@@ -1476,7 +1514,7 @@ async function connectWallet() {
 function showScreen1() {
   document.getElementById('root').innerHTML = `
     <div class="container" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:0px;background:transparent;padding:0px"; padding-top:40px>
-      <img src="/logo/arc_mascot_title333XXfit.png"
+      <img src="/logo/mascot2 copyfit.png"
            alt="sumbangsih_mascot" 
            style="margin-top:40px; margin-bottom:30px; max-width:480px; width:90%; height:auto;">
       
@@ -1723,7 +1761,8 @@ document
 window.changeChain = async function(chainKey) {
 
   selectedChain = chainKey;
-
+  selectedChainX  = chainKey;
+  
   const chain = CONFIG.chains[chainKey];
 
   try {
@@ -1757,11 +1796,11 @@ window.changeChain = async function(chainKey) {
     jenengechain = chain.name;
     //alert(`✅ Switched to ${chain.name}.`);
 
-    //await showScreen2();
+    await showScreen2();
 
-    await loadCampaigns();
+    //await loadCampaigns();
 
-    showHomeScreen();
+    //showHomeScreen();
 
   } catch (err) {
     console.error(err);
@@ -2569,7 +2608,7 @@ const userBal = await getUserBalance();
 const userBalFormatted = formatUSDC(userBal);
   
   const chainLogo = {
-  "arc-testnet": "/logo/arc_logo_small2_opaq2.png",
+  "arc-testnet": "/logo/n_arc_logo_small2.png",
   "base-sepolia": "/logo/base_logo_small.png",
   "ink-sepolia": "/logo/ink_logo_small.png",
   "arbitrum-sepolia": "/logo/arb_logo_small.png",
@@ -2577,6 +2616,16 @@ const userBalFormatted = formatUSDC(userBal);
   "avalanche-fuji": "/logo/avax_logo_small.png",
   "hyperevm-testnet": "/logo/hype_logo_small.png",
   "unichain-sepolia": "/logo/uni_logo_small_testnet.png"
+  };
+  const displayname = {
+  "arc-testnet": "arc testnet",
+  "base-sepolia": "base sepolia",
+  "ink-sepolia": "ink sepolia",
+  "arbitrum-sepolia": "arbitrum sepolia",
+  "eth-sepolia": "ethereum sepolia",
+  "avalanche-fuji": "avalanche fuji",
+  "hyperevm-testnet": "hyperliquid testnet",
+  "unichain-sepolia": "unichain sepolia"
   };
 
   const logoWidth = window.innerWidth <= 768 ? '80%' : '50%';
@@ -2594,12 +2643,14 @@ const userBalFormatted = formatUSDC(userBal);
     : '';
   };
 
+//alert(selectedChain);
+
   document.getElementById('root').innerHTML = `
     <div class="container">
 
       <div style="display:flex;justify-content:flex-start;gap:8px;align-items:center;margin-bottom:8px;">
         <div style="margin:0" class="readonly33">
-         <img src="/logo/logo_judul_333XX1.png"
+         <img src="/logo/judul2 copyfit.png"
          style="width:${logoWidth}; height:auto; position: relative; top: 0px;"></div>
         <div onclick="showHistory()" class="btn_smol_ns">
         📖
@@ -2613,6 +2664,11 @@ const userBalFormatted = formatUSDC(userBal);
         { pick a chain }</span>
       </div>
 
+      <div class="readonly3"class="readonly2X" style="font-size:1.1rem; text-align:center;">
+        ✦ ${displayname[selectedChain]} ✦</span>
+      </div>
+
+<!--
 <div
   style="
     width:100%;
@@ -2627,17 +2683,14 @@ const userBalFormatted = formatUSDC(userBal);
       </div>
   <img
     src="${chainLogo[selectedChain]}"
-    width="64"
+    width="48"
     height=auto
   >
-      <div class="readonly2" style="font-size:1.8rem;">
-      </span>
-      </div>
 </div>
 
 
 <div id="batesan" style="height:20px;"></div>
-
+-->
 
 
 
@@ -2679,7 +2732,7 @@ const userBalFormatted = formatUSDC(userBal);
         class="option-btn-circle ${selectedChain==='arc-testnet' ? 'active' : ''}"
         onclick="changeChainAndClose('arc-testnet')"
       >
-        <img src="/logo/arc_logo_small2_opaq2.png" width="32" style="position: relative; top: 1px;">
+        <img src="/logo/n_arc_logo_small2.png" width="32" style="position: relative; top: 1px;">
       </div>
 
       <div
@@ -3010,7 +3063,7 @@ const userBalFormatted = formatUSDC(userBal);
     class="option-btn-circle ${selectedChain==='arc-testnet' ? 'active' : ''}"
     onclick="changeChain('arc-testnet')"
   >
-    <img src="/logo/arc_logo_small2_opaq2.png"
+    <img src="/logo/n_arc_logo_small2.png"
          width="32"
          style="position: relative; top: 1px;">
   </div>
@@ -3263,6 +3316,19 @@ const userBalFormatted = formatUSDC(userBal);
 <div id="batesan_xxx5" style="height:10px;"></div>
 
 <!-- <div style="height:20px;"></div> -->
+
+    <div id="caricari" class="flex-row">
+        <input type="text"
+        maxlength="40"
+        placeholder="title, etc"
+        id="campaign-search"
+        class="inputan"
+        value=""
+        oninput="showPencarian()"
+        style="flex:1; text-align:center; border-radius: 0px; margin-left: margin-right: 120px;"
+        >
+    </div>
+    <div id="batesan_caricari" style="height:10px;"></div>
 
     <div id="category1">
     <div class="flex-row">
@@ -3587,7 +3653,7 @@ async function showScreen2NEXT() {
   const userBalFormatted = formatUSDC(userBal);
 
   const chainLogo = {
-  "arc-testnet": "/logo/arc_logo_small2_opaq2.png",
+  "arc-testnet": "/logo/n_arc_logo_small2.png",
   "base-sepolia": "/logo/base_logo_small.png",
   "ink-sepolia": "/logo/ink_logo_small.png",
   "arbitrum-sepolia": "/logo/arb_logo_small.png",
@@ -3696,7 +3762,7 @@ async function showScreen2NEXT() {
         class="option-btn-circle ${selectedChain==='arc-testnet' ? 'active' : ''}"
         onclick="changeChainAndClose('arc-testnet')"
       >
-        <img src="/logo/arc_logo_small2_opaq2.png" width="32" style="position: relative; top: 1px;">
+        <img src="/logo/n_arc_logo_small2.png" width="32" style="position: relative; top: 1px;">
       </div>
 
       <div
@@ -3774,7 +3840,7 @@ async function showScreen2NEXT() {
     class="option-btn-circle ${selectedChain==='arc-testnet' ? 'active' : ''}"
     onclick="changeChain('arc-testnet')"
   >
-    <img src="/logo/arc_logo_small2_opaq2.png"
+    <img src="/logo/n_arc_logo_small2.png"
          width="32"
          style="position: relative; top: 1px;">
   </div>
@@ -4236,11 +4302,21 @@ window.showCreateCampaignScreen = function () {
 };
 
 function showHomeScreenRefresh() {
-   loadCampaigns();
+    loadCampaigns();
 
     showHomeScreen();
 }
 window.showHomeScreenRefresh = showHomeScreenRefresh;
+
+function focusing() {
+        document
+            .getElementById("batesan_xxx")
+            ?.scrollIntoView({
+                behavior: "smooth",
+                block: "start"
+            });
+}
+window.focusing = focusing;
 
 window.showHomeScreen = function () {
   document.getElementById(
@@ -4261,6 +4337,8 @@ window.showHomeScreen = function () {
   document.getElementById("new-campaign-button").classList.remove("hidden");
   
   showmainbutton();
+
+  focusing();
 };
 
 window.showmainbutton = function () {
@@ -4283,6 +4361,8 @@ window.showmainbutton = function () {
 
   document.getElementById("category1").classList.remove("hidden");
   document.getElementById("category2").classList.remove("hidden");
+  document.getElementById("caricari").classList.remove("hidden");
+  document.getElementById("batesan_caricari").classList.remove("hidden");
 }
 window.hidemainbutton = function () {
   document.getElementById("batesan").classList.add("hidden");
@@ -4296,6 +4376,8 @@ window.hidemainbutton = function () {
 
   document.getElementById("category1").classList.add("hidden");
   document.getElementById("category2").classList.add("hidden");
+  document.getElementById("caricari").classList.add("hidden");
+  document.getElementById("batesan_caricari").classList.add("hidden");
 }
 window.hidemainbutton2 = function () {
   document.getElementById("batesan_xxx").classList.add("hidden");
@@ -4866,6 +4948,18 @@ window.hideCategorylist3 = function () {
   closeAllToasts();
   document.getElementById("filterModal").style.display = "none";
 };
+
+window.showPencarian = function (chain) {
+      currentSearch = document
+        .getElementById("campaign-search")
+        .value
+        .trim()
+        .toLowerCase();
+
+      loadCampaigns();
+};
+
+window.showPencarian = showPencarian;
 
 window.changeChainAndClose = function (chain) {
   closeAllToasts();
@@ -6504,7 +6598,7 @@ if (userAddress) {
       if (actualRank === 1) {
 
         rankDisplay =
-          '🌟' //`<img src="/logo/arc_logo_small2_opaq2.png" width="28">`
+          '🌟' //`<img src="/logo/n_arc_logo_small2.png" width="28">`
 
       } else if (
         actualRank === 2
