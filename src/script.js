@@ -1338,7 +1338,7 @@ html += `
         target: <span>${currentformated}/${targetformated} $USDC</span>
       </div>
 
-<div id="fund-campaign-button" class="flex-row">
+<div id="fund-campaign-button" style="align-items:center; text-align:center;">
   <button
     class="btn_op_rev2" style="font-size:1.1rem;"
     onclick="hidemainbutton(); hidemainbutton2(); openCampaign('${campaignAddress}')">
@@ -3063,7 +3063,7 @@ const userBalFormatted = formatUSDC(userBal);
 
 
 
-<div id="choose-chain-button" class="flex-row">
+<div id="choose-chain-button" class="flex-row" style="align-items:center;">
 
   <div id="arc-testnetchainbutton2" 
     class="option-btn-circle cheeeinbutton}"
@@ -3108,7 +3108,7 @@ const userBalFormatted = formatUSDC(userBal);
 
 <div id="batesan_xxx" style="height:10px;"></div>
 
-<div id="new-campaign-button" class="flex-row">
+<div id="new-campaign-button" style="align-items:center; text-align:center;">
   <button
     class="btn_op_rev2" style="font-size:1.1rem;"
     onclick="hidemainbutton(); hidemainbutton2(); showCreateCampaignScreen()">
@@ -3181,7 +3181,7 @@ const userBalFormatted = formatUSDC(userBal);
 
     <div style="height:20px;"></div>
     <div id="category3">
-    <div class="flex-row">
+    <div class="flex-row" style="align-items:center; text-align:center;">
     <div 
       class="readonly2" style="font-size:1.1rem; flex: 1;"
     >
@@ -3222,7 +3222,7 @@ const userBalFormatted = formatUSDC(userBal);
 
   <div style="height:10px;"></div>
 
-  <div class="flex-row">
+  <div class="flex-row" style="align-items:center; text-align:center;">
     <button
       class="btn_op_rev2" style="font-size:1.1rem;"
       onclick="createCampaign()"
@@ -3285,7 +3285,7 @@ const userBalFormatted = formatUSDC(userBal);
 
     <div style="height:10px;"></div>
     
-  <div class="flex-row">
+  <div class="flex-row" style="align-items:center; text-align:center;">
     <button id="depositbutton"
       class="btn_op_rev2" style="font-size:1.1rem;"
       onclick="depositCampaign()"
@@ -3326,7 +3326,7 @@ const userBalFormatted = formatUSDC(userBal);
 
 <!-- <div style="height:20px;"></div> -->
 
-    <div id="caricari" class="flex-row">
+    <div id="caricari" class="flex-row" style="align-items:center;">
         <input type="text"
         maxlength="40"
         placeholder="title, etc"
@@ -3340,7 +3340,7 @@ const userBalFormatted = formatUSDC(userBal);
     <div id="batesan_caricari" style="height:10px;"></div>
 
     <div id="category1">
-    <div class="flex-row">
+    <div class="flex-row" style="align-items:center; text-align:center;">
     <div 
       class="readonly2" style="font-size:1.1rem; flex: 1;"
     >
@@ -3356,7 +3356,7 @@ const userBalFormatted = formatUSDC(userBal);
     </div>
 
     <div id="category2">
-    <div class="flex-row">
+    <div class="flex-row" style="align-items:center; text-align:center;">
     <div 
       class="readonly2" style="font-size:1.1rem; flex: 1;"
     >
@@ -3408,7 +3408,7 @@ const userBalFormatted = formatUSDC(userBal);
   `;
 
 function setCheeein(category) {
-    alert(selectedChain)
+    //alert(selectedChain)
     selectedChain = category;
     document.getElementById("cheeeinname").textContent = `on @${displayname[selectedChain]}`;
 

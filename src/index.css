@@ -1204,9 +1204,20 @@ input[readonly_txt2] {
   .flex-row2 {
     flex-direction: column;
   }
+
+  .inputan {
+    width:100% !important;
+  }
+  .btn_op_rev2 {
+    margin-left: 2px !important;
+  }
 }
 
-
+.option-btn-circle, .btn_op_rev2 {
+  width:228px !important;
+  justify-content: center;
+  align-items: center;
+}
 
 #loadingScreen {
   position: fixed;
