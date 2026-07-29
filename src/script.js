@@ -81,6 +81,7 @@ let theselectedCampaign;
 let theselectedChain;
 let thesigner;
 let favoriteCampaigns = [];
+let campaignCache = [];
 
 let selectedCategory = "general";
 let selectedCategory2 = "general";
@@ -797,7 +798,8 @@ async function updateLivePrice(textboxId) {
 }
 
 // LOAD CAMPAIGN //
-async function loadCampaigns() {
+//async function loadCampaigns() {
+async function refreshCampaignCache() {
 
   if (currentCampaignFilter == "") {
   currentCampaignFilter = "all"
@@ -826,9 +828,47 @@ const campaigns = [...await factory.getCampaigns()].reverse();
             "campaign-list"
         );
 
+if (campaigns.length === 0) {
+
+    campaignList.innerHTML = `
+
+<div style="height:10px;"></div>
+
+<div class="readonly2X"
+     style="text-align:center; opacity:1; font-size:1.8rem;">
+{ no campaign }
+</div>
+
+`;
+
+    return;
+}
+
     campaignList.innerHTML = "";
 
 favoriteCampaigns = [];
+
+campaignCache =
+    await Promise.all(
+
+    campaigns.map(async (campaignAddress) => {
+
+        const campaign = new ethers.Contract(
+            campaignAddress,
+            CAMPAIGN_ABI,
+            provider
+        );
+
+        const details = await campaign.getDetails();
+
+        return {
+            address: campaignAddress,
+            details
+        };
+
+    })
+
+);
 
 if (userAddress) {
 
@@ -849,6 +889,8 @@ if (userAddress) {
         );
 }
 
+loadCampaigns();
+
 /*
     if (campaigns.length === 0) {
 
@@ -868,26 +910,34 @@ if (userAddress) {
     }
 */
 
+/*
     let displayedCount = 0;
     let nomere = 0;
     
-    for (const campaignAddress of campaigns) {
+const now = Math.floor(
+    Date.now() / 1000
+);
 
-        const campaign = new ethers.Contract(
-            campaignAddress,
-            CAMPAIGN_ABI,
-            provider
-        );
+let html = "";
+
+    //for (const campaignAddress of campaigns) {
+for (const item of campaignDetails) {
+
+    const campaignAddress = item.address;
+
+    const details = item.details;
+
+        //const campaign = new ethers.Contract(
+            //campaignAddress,
+            //CAMPAIGN_ABI,
+            //provider
+        //);
 
 nomere++;
 
 //const network = await provider.getNetwork();
 
-const details = await campaign.getDetails();
-
-const now = Math.floor(
-    Date.now() / 1000
-);
+//const details = await campaign.getDetails();
 
 const creator = details[0];
 const category = details[9];
@@ -1003,7 +1053,7 @@ const targetformated = formatUSDC(target);
 
 if (displayedCount > 0) {
 
-    campaignList.innerHTML += `
+    html += `
 
 <div style="height:10px;"></div>
 
@@ -1011,7 +1061,7 @@ if (displayedCount > 0) {
 
 }
 
-        campaignList.innerHTML += `
+        html += `
 
             <div class="campaign-card">
 
@@ -1045,7 +1095,7 @@ if (displayedCount > 0) {
 
     if (displayedCount === 0) {
 
-    campaignList.innerHTML = `
+    html += `
 
 <div style="height:10px;"></div>
 
@@ -1060,7 +1110,7 @@ if (displayedCount > 0) {
 
 } else {
 
-    campaignList.innerHTML += `
+    html += `
 
 <div style="height:10px;"></div>
 
@@ -1074,6 +1124,236 @@ if (displayedCount > 0) {
 `;
 
 }
+
+campaignList.innerHTML = html;
+*/
+
+}
+function loadCampaigns() {
+
+    const campaignList =
+        document.getElementById(
+            "campaign-list"
+        );
+
+    campaignList.innerHTML = "";
+
+    let displayedCount = 0;
+    let nomere = 0;
+    
+const now = Math.floor(
+    Date.now() / 1000
+);
+
+let html = "";
+
+    //for (const campaignAddress of campaigns) {
+for (const item of campaignCache) {
+
+    const campaignAddress = item.address;
+
+    const details = item.details;
+
+        //const campaign = new ethers.Contract(
+            //campaignAddress,
+            //CAMPAIGN_ABI,
+            //provider
+        //);
+
+nomere++;
+
+//const network = await provider.getNetwork();
+
+//const details = await campaign.getDetails();
+
+const creator = details[0];
+const category = details[9];
+
+const targetAmount = Number(
+    ethers.formatUnits(
+        details[1],
+        6
+    )
+);
+
+const currentAmount = Number(
+    ethers.formatUnits(
+        details[2],
+        6
+    )
+);
+
+const deadline = Number(
+    details[3]
+);
+
+const withdrawn = details[7];
+
+const isEnded =
+
+    withdrawn ||
+
+    currentAmount >= targetAmount ||
+
+    deadline <= now;
+
+const isMine =
+
+    userAddress &&
+
+    creator.toLowerCase() ===
+    userAddress.toLowerCase();
+
+if (
+
+    currentCampaignFilter === "active" &&
+
+    isEnded
+
+) {
+
+    continue;
+}
+
+if (
+
+    currentCampaignFilter === "ended" &&
+
+    !isEnded
+
+) {
+
+    continue;
+}
+
+if (
+
+    currentCampaignFilter === "favorite" &&
+
+    !favoriteCampaigns.includes(
+        campaignAddress.toLowerCase()
+    )
+
+) {
+
+    continue;
+}
+
+if (
+
+    currentCampaignFilter === "mine" &&
+
+    !isMine
+
+) {
+
+    continue;
+}
+
+if (
+
+    currentCategory !== "all" &&
+
+    category.toLowerCase() !==
+
+    currentCategory.toLowerCase()
+
+) {
+
+    continue;
+}
+
+        const title = details[5];
+
+        const current = ethers.formatUnits(
+            details[2],
+            6
+        );
+
+        const target = ethers.formatUnits(
+            details[1],
+            6
+        );
+
+const currentformated = formatUSDC(current);
+const targetformated = formatUSDC(target);
+
+if (displayedCount > 0) {
+
+    html += `
+
+<div style="height:10px;"></div>
+
+`;
+
+}
+
+        html += `
+
+            <div class="campaign-card">
+
+      <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
+        🔸 category • <span>${category}</span>
+      </div>
+
+      <div class="readonly2" style="text-align:center;">
+        { ${title} }</span>
+      </div>
+
+      <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
+        🔸 target • <span>${currentformated} ○ ${targetformated} ● USDC</span>
+      </div>
+
+<div id="fund-campaign-button" class="flex-row">
+  <button
+    class="btn_op_rev2" style="font-size:1.1rem;"
+    onclick="hidemainbutton(); hidemainbutton2(); openCampaign('${campaignAddress}')">
+        detail</span>
+  </button>
+</div>
+
+            </div>
+
+        `;
+
+        displayedCount++;
+
+    }
+
+    if (displayedCount === 0) {
+
+    html += `
+
+<div style="height:10px;"></div>
+
+<div class="readonly2X"
+     style="text-align:center; opacity:1; font-size:1.8rem;">
+{ no campaign }
+</div>
+
+<div style="height:0px;"></div>
+
+`;
+
+} else {
+
+    html += `
+
+<div style="height:10px;"></div>
+
+<div class="readonly2X"
+     style="text-align:center; opacity:1; font-size:1.8rem;">
+{ end of list }
+</div>
+
+<div style="height:0px;"></div>
+
+`;
+
+}
+
+campaignList.innerHTML = html;
+
 }
 
 function setCampaignFilter(filter) {
@@ -1177,7 +1457,7 @@ async function connectWallet() {
 
     await showScreen2();
 
-    await loadCampaigns();
+    await refreshCampaignCache(); //loadCampaigns();
     
   } catch (e) {
     console.error(e);
@@ -4116,7 +4396,7 @@ showToast(
   1000
 );
 
-    await loadCampaigns();
+    await refreshCampaignCache(); //loadCampaigns();
 
     showHomeScreen();
 
@@ -4252,7 +4532,7 @@ window.withdrawCampaign = async function (campaignAddress) {
 
         }
 
-        await loadCampaigns();
+        await refreshCampaignCache(); //loadCampaigns();
 
         showHomeScreen();
 
@@ -4444,7 +4724,7 @@ console.log("ERC20_ABI =", ERC20_ABI);
 
         //await showScreen2();
 
-        await loadCampaigns();
+        await refreshCampaignCache(); //loadCampaigns();
 
         showHomeScreen();
 
