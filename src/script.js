@@ -113,8 +113,8 @@ const VAULT_ABI = [
 
 function formatUSDC(value) {
   return Number(value).toLocaleString('en-US', {
-    minimumFractionDigits: 4,
-    maximumFractionDigits: 4
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
   });
 }
 
@@ -1079,7 +1079,7 @@ if (displayedCount > 0) {
       </div>
 
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        🔸 target • <span>${currentformated} ○ ${targetformated} ● USDC</span>
+        🔸 target • <span>${currentformated} ○ ${targetformated} $USDC</span>
       </div>
 
 <div id="fund-campaign-button" class="flex-row">
@@ -1325,15 +1325,15 @@ html += `
 >
 
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        🔸 category • <span>${category}</span>
-      </div>
-
-      <div class="readonly2" style="text-align:center;">
-        { ${title} }</span>
+        title: <span>${title}</span>
       </div>
 
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        🔸 target • <span>${currentformated} ○ ${targetformated} ● USDC</span>
+        category: <span>${category}</span>
+      </div>
+
+      <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
+        target: <span>${currentformated}/${targetformated} $USDC</span>
       </div>
 
 <div id="fund-campaign-button" class="flex-row">
@@ -1796,7 +1796,11 @@ window.changeChain = async function(chainKey) {
     jenengechain = chain.name;
     //alert(`✅ Switched to ${chain.name}.`);
 
-    await showScreen2();
+    //await showScreen2();
+
+    //await refreshCampaignCache();
+
+    setCheeein(selectedChain);
 
     //await loadCampaigns();
 
@@ -1941,7 +1945,7 @@ async function depositUSDC() {
     if (balance < amount6) {
 
       showToast(
-        "❌ Insufficient ● USDC.",
+        "❌ Insufficient $USDC.",
         3000,
         0
       );
@@ -2120,7 +2124,7 @@ async function createTicket() {
     const systemBalXX = await refreshLiquidityBalance();
     if (systemBalXX < (amount+amount1+amount2+amount3+amount4)) {
       showToast(
-        "❌ Insufficient ● USDC on Vault.",
+        "❌ Insufficient $USDC on Vault.",
         3000,
         0
       );
@@ -2618,14 +2622,14 @@ const userBalFormatted = formatUSDC(userBal);
   "unichain-sepolia": "/logo/uni_logo_small_testnet.png"
   };
   const displayname = {
-  "arc-testnet": "arc testnet",
-  "base-sepolia": "base sepolia",
-  "ink-sepolia": "ink sepolia",
-  "arbitrum-sepolia": "arbitrum sepolia",
-  "eth-sepolia": "ethereum sepolia",
-  "avalanche-fuji": "avalanche fuji",
-  "hyperevm-testnet": "hyperliquid testnet",
-  "unichain-sepolia": "unichain sepolia"
+  "arc-testnet": "arctestnet",
+  "base-sepolia": "basesepolia",
+  "ink-sepolia": "inksepolia",
+  "arbitrum-sepolia": "arbitrumsepolia",
+  "eth-sepolia": "ethereumsepolia",
+  "avalanche-fuji": "avalanchefuji",
+  "hyperevm-testnet": "hyperevmtestnet",
+  "unichain-sepolia": "unichainsepolia"
   };
 
   const logoWidth = window.innerWidth <= 768 ? '80%' : '50%';
@@ -2660,12 +2664,12 @@ const userBalFormatted = formatUSDC(userBal);
           ${shortAddress}
         </div>
       </div>
-      <div class="readonly3"class="readonly2X" style="font-size:1.8rem; text-align:center;">
+      <div id="pickachain" class="readonly2X" style="font-size:1.8rem; text-align:center;">
         { pick a chain }</span>
       </div>
 
-      <div class="readonly3"class="readonly2X" style="font-size:1.1rem; text-align:center;">
-        ✦ ${displayname[selectedChain]} ✦</span>
+      <div id="cheeeinname" class="readonly2X" style="font-size:1.3rem; text-align:center;">
+        on @${displayname[selectedChain]}</span>
       </div>
 
 <!--
@@ -2687,10 +2691,10 @@ const userBalFormatted = formatUSDC(userBal);
     height=auto
   >
 </div>
-
-
-<div id="batesan" style="height:20px;"></div>
 -->
+
+<div id="batesan" style="height:0px;"></div>
+
 
 
 
@@ -2728,57 +2732,57 @@ const userBalFormatted = formatUSDC(userBal);
 
     <div class="flex-row" style="flex-direction: column;">
 
-      <div
-        class="option-btn-circle ${selectedChain==='arc-testnet' ? 'active' : ''}"
+      <div id="arc-testnetchainbutton" 
+        class="option-btn-circle cheeeinbutton}"
         onclick="changeChainAndClose('arc-testnet')"
       >
         <img src="/logo/n_arc_logo_small2.png" width="32" style="position: relative; top: 1px;">
       </div>
 
-      <div
-        class="option-btn-circle ${selectedChain==='base-sepolia' ? 'active' : ''}"
+      <div id="base-sepoliachainbutton" 
+        class="option-btn-circle cheeeinbutton}"
         onclick="changeChainAndClose('base-sepolia')"
       >
         <img src="/logo/base_logo_small.png" width="32" style="position: relative; top: 1px;">
       </div>
 
-      <div
-        class="option-btn-circle-unsupported ${selectedChain==='eth-sepolia' ? 'active' : ''}"
+      <div id="eth-sepoliachainbutton" 
+        class="option-btn-circle-unsupported cheeeinbutton}"
         onclick="event.stopPropagation(); gekunsupported();"
       >
         <img src="/logo/eth_logo_small.png" width="32" style="position: relative; top: 1px;">
       </div>
 
-      <div
-        class="option-btn-circle ${selectedChain==='arbitrum-sepolia' ? 'active' : ''}"
+      <div id="arbitrum-sepoliachainbutton" 
+        class="option-btn-circle cheeeinbutton}"
         onclick="changeChainAndClose('arbitrum-sepolia')"
       >
         <img src="/logo/arb_logo_small.png" width="32" style="position: relative; top: 1px;">
       </div>
 
-      <div
-        class="option-btn-circle ${selectedChain==='unichain-sepolia' ? 'active' : ''}"
+      <div id="unichain-sepoliachainbutton" 
+        class="option-btn-circle cheeeinbutton}"
         onclick="changeChainAndClose('unichain-sepolia')"
       >
         <img src="/logo/uni_logo_small_testnet.png" width="32" style="position: relative; top: 1px;">
       </div>
 
-      <div
-        class="option-btn-circle ${selectedChain==='avalanche-fuji' ? 'active' : ''}"
+      <div id="avalanche-fujichainbutton" 
+        class="option-btn-circle cheeeinbutton}"
         onclick="changeChainAndClose('avalanche-fuji')"
       >
         <img src="/logo/avax_logo_small.png" width="32" style="position: relative; top: 1px;">
       </div>
 
-      <div
-        class="option-btn-circle ${selectedChain==='hyperevm-testnet' ? 'active' : ''}"
+      <div id="hyperevm-testnetchainbutton" 
+        class="option-btn-circle cheeeinbutton}"
         onclick="changeChainAndClose('hyperevm-testnet')"
       >
         <img src="/logo/hype_logo_small.png" width="32" style="position: relative; top: 1px;">
       </div>
 
-      <div
-        class="option-btn-circle ${selectedChain==='ink-sepolia' ? 'active' : ''}"
+      <div id="ink-sepoliachainbutton" 
+        class="option-btn-circle cheeeinbutton}"
         onclick="changeChainAndClose('ink-sepolia')"
       >
         <img src="/logo/ink_logo_small.png" width="32" style="position: relative; top: 1px;">
@@ -2913,7 +2917,7 @@ const userBalFormatted = formatUSDC(userBal);
   >
 
       <div class="readonly2" style="font-size:1.3rem; text-align:center;">
-        🔵 pick a category.</span>
+        { pick a category }</span>
       </div>
 
     <div class="flex-row" style="flex-direction: column;">
@@ -3001,7 +3005,7 @@ const userBalFormatted = formatUSDC(userBal);
   >
 
       <div class="readonly2" style="font-size:1.3rem; text-align:center;">
-        🔵 pick a filter.</span>
+        { pick a filter }</span>
       </div>
 
     <div id="campaign-button" class="flex-row" style="flex-direction: column;">
@@ -3027,7 +3031,7 @@ const userBalFormatted = formatUSDC(userBal);
   <div
     class="option-btn-circle" id="favCBtn" style="font-size:1.3rem;"
     onclick="setCampaignFilter('favorite')">
-    ♥️</span>
+    liked ♥️</span>
   </div>
 
   <div
@@ -3059,8 +3063,8 @@ const userBalFormatted = formatUSDC(userBal);
 
 <div id="choose-chain-button" class="flex-row">
 
-  <div
-    class="option-btn-circle ${selectedChain==='arc-testnet' ? 'active' : ''}"
+  <div id="arc-testnetchainbutton2" 
+    class="option-btn-circle cheeeinbutton}"
     onclick="changeChain('arc-testnet')"
   >
     <img src="/logo/n_arc_logo_small2.png"
@@ -3068,8 +3072,8 @@ const userBalFormatted = formatUSDC(userBal);
          style="position: relative; top: 1px;">
   </div>
 
-  <div
-    class="option-btn-circle ${selectedChain==='base-sepolia' ? 'active' : ''}"
+  <div  id="base-sepoliachainbutton2" 
+    class="option-btn-circle cheeeinbutton}"
     onclick="changeChain('base-sepolia')"
   >
     <img src="/logo/base_logo_small.png"
@@ -3093,7 +3097,7 @@ const userBalFormatted = formatUSDC(userBal);
 </div>
 
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        🔸 on wallet • <span id="userBalanceDisplay"> ${userBalFormatted} ● USDC</span>
+        on wallet: <span id="userBalanceDisplay"> ${userBalFormatted} $USDC</span>
       </div>
 
 <div class="divider-container" id="hr_xxxxxx2">
@@ -3179,7 +3183,7 @@ const userBalFormatted = formatUSDC(userBal);
     <div 
       class="readonly2" style="font-size:1.1rem; flex: 1;"
     >
-      🔸 category •
+      category:
     </div>
 
     <button id="showcategorybutton"
@@ -3193,7 +3197,7 @@ const userBalFormatted = formatUSDC(userBal);
     
       <div style="display:flex; flex-direction: column; align-items:center; gap:10px; margin:10px 0 6px 0;">    
       <div class="readonly2" style="font-size:1.3rem; text-align:center;">
-        start ○ end date.</span>
+        start/end date.</span>
       </div>
 
         <div style="display:flex; align-items:center; gap:10px; margin:10px 0 6px 0;">
@@ -3238,8 +3242,11 @@ const userBalFormatted = formatUSDC(userBal);
 <!-- CAMPAIGN DETAILS -->
 <div id="campaign-details-screen" style="display:none;">
 
-      <div class="readonly2" style="text-align:center;">
+      <!-- <div class="readonly2" style="text-align:center;">
         { <span id="detail-title"></span> }
+      </div> -->
+      <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
+        title: <span> <span id="detail-title"></span>
       </div>
 
       <div class="divider-container" id="hr_xxxxxx4">
@@ -3253,13 +3260,13 @@ const userBalFormatted = formatUSDC(userBal);
       </div>
       
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        🔸 target • <span> <span id="detail-raised"></span> ○ <span id="detail-goal"></span> ● USDC</span>
+        target: <span> <span id="detail-raised"></span>/<span id="detail-goal"></span> $USDC</span>
       </div>
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        🔸 created by • <span id="detail-creator"></span>
+        created by: <span id="detail-creator"></span>
       </div>
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        🔸 end at • <span id="detail-deadline"></span>
+        end at: <span id="detail-deadline"></span>
       </div>
 
       <div style="display:flex; flex-direction: column; align-items:center; gap:10px; margin:10px 0 6px 0;">
@@ -3335,7 +3342,7 @@ const userBalFormatted = formatUSDC(userBal);
     <div 
       class="readonly2" style="font-size:1.1rem; flex: 1;"
     >
-      🔸 category filter •
+      category filter:
     </div>
     <button id="showcategorybuttonfilter"
       class="btn_op_rev2" style="font-size:1.1rem; margin-left: 23px;"
@@ -3351,7 +3358,7 @@ const userBalFormatted = formatUSDC(userBal);
     <div 
       class="readonly2" style="font-size:1.1rem; flex: 1;"
     >
-      🔸 status filter •
+      status filter:
     </div>
     <button id="showcampaignbuttonfilter"
       class="btn_op_rev2" style="font-size:1.1rem; margin-left: 23px;"
@@ -3397,6 +3404,46 @@ const userBalFormatted = formatUSDC(userBal);
   </div>
 
   `;
+
+function setCheeein(category) {
+    alert(selectedChain)
+    selectedChain = category;
+    document.getElementById("cheeeinname").textContent = `on @${displayname[selectedChain]}`;
+
+    document.getElementById('arc-testnetchainbutton').classList.remove("active");
+    document.getElementById('arc-testnetchainbutton2').classList.remove("active");
+    document.getElementById('base-sepoliachainbutton').classList.remove("active");
+    document.getElementById('base-sepoliachainbutton2').classList.remove("active");
+    document.getElementById('eth-sepoliachainbutton').classList.remove("active");
+    document.getElementById('arbitrum-sepoliachainbutton').classList.remove("active");
+    document.getElementById('unichain-sepoliachainbutton').classList.remove("active");
+    document.getElementById('avalanche-fujichainbutton').classList.remove("active");
+    document.getElementById('hyperevm-testnetchainbutton').classList.remove("active");
+    document.getElementById('ink-sepoliachainbutton').classList.remove("active");
+
+    if (selectedChain === "arc-testnet") {
+    document.getElementById('arc-testnetchainbutton').classList.add("active");
+    document.getElementById('arc-testnetchainbutton2').classList.add("active");}
+    else if (selectedChain === "base-sepolia") {
+    document.getElementById('base-sepoliachainbutton').classList.add("active");
+    document.getElementById('base-sepoliachainbutton2').classList.add("active");}
+    else if (selectedChain === "eth-sepolia") {
+    document.getElementById('eth-sepoliachainbutton').classList.add("active");}
+    else if (selectedChain === "arbitrum-sepolia") {
+    document.getElementById('arbitrum-sepoliachainbutton').classList.add("active");}
+    else if (selectedChain === "unichain-sepolia") {
+    document.getElementById('unichain-sepoliachainbutton').classList.add("active");}
+    else if (selectedChain === "avalanche-fuji") {
+    document.getElementById('avalanche-fujichainbutton').classList.add("active");}
+    else if (selectedChain === "hyperevm-testnetc") {
+    document.getElementById('hyperevm-testnetchainbutton').classList.add("active");}
+    else if (selectedChain === "ink-sepolia") {
+    document.getElementById('ink-sepoliachainbutton').classList.add("active");}
+}
+
+window.setCheeein = setCheeein;
+
+setCheeein(selectedChain);
 
 function setCategory(category) {
     selectedCategory = category;
@@ -3513,6 +3560,12 @@ async function reset_screen_balance() {
 const userBal = await getUserBalance();
 
 const userBalFormatted = formatUSDC(userBal);
+}
+
+async function reset_screen_main() {
+    setCategory2('all');
+    setCampaignFilter('all');
+    document.getElementById('caricari').value = "";
 }
 
 async function reset_screen() {
@@ -3868,13 +3921,13 @@ async function showScreen2NEXT() {
 <hr>
 
       <div class="inputan" style="display:flex; justify-content:space-between; align-items:center;">
-        🔸 on wallet • <span id="userBalanceDisplay"> ${userBalFormatted} ● USDC</span>
+        🔸 on wallet • <span id="userBalanceDisplay"> ${userBalFormatted} $USDC</span>
       </div>
       <div class="readonly3" style="display:flex; justify-content:space-between; align-items:center;">
-        🔸 on vault • <span id="systemBalanceDisplay"> ${systemBalXFormatted} ● USDC</span>
+        🔸 on vault • <span id="systemBalanceDisplay"> ${systemBalXFormatted} $USDC</span>
       </div>
       <div class="readonly3" style="display:flex; justify-content:space-between; align-items:center;">
-        🔸 available on vault • <span id="systemBalanceDisplayLiq"> ${systemBalXXFormatted} ● USDC</span>
+        🔸 available on vault • <span id="systemBalanceDisplayLiq"> ${systemBalXXFormatted} $USDC</span>
       </div>
 
 <hr>
@@ -3909,7 +3962,7 @@ async function showScreen2NEXT() {
 <!-- deposit html here -->
 
       <div id="livePrice111Deposit" class="readonly3" style="text-align:center;">
-        deposit ● USDC</span>
+        deposit $USDC</span>
       </div>
       
       <div style="display:flex; align-items:center; gap:10px; margin:10px 0 6px 0;">
@@ -3951,7 +4004,7 @@ async function showScreen2NEXT() {
   <!-- create ticket html here -->
 
       <div id="livePriceXXXTicket" class="readonly3" style="text-align:center;">
-        create ticket for ● USDC withdraw</span>
+        create ticket for $USDC withdraw</span>
       </div>
       
       <div class="readonly3smaller" style="flex: 50%; text-align:center; font-weight:bold;">
@@ -4035,7 +4088,7 @@ async function showScreen2NEXT() {
   <!-- withdraw html here -->
 
       <div id="livePrice111Withdraw" class="readonly3" style="text-align:center;">
-        withdraw ● USDC</span>
+        withdraw $USDC</span>
       </div>
       
       <div style="display:flex; align-items:center; gap:10px; margin:10px 0 6px 0;">
@@ -4351,6 +4404,7 @@ window.showmainbutton = function () {
   document.getElementById("hr_xxx3").classList.remove("hidden");
   document.getElementById("hr_xxx4").classList.remove("hidden");
   document.getElementById("batesan").classList.remove("hidden");
+  document.getElementById("pickachain").classList.remove("hidden");
   document.getElementById("choose-chain-button").classList.remove("hidden");
   document.getElementById("campaign-titletitle").classList.remove("hidden");
 
@@ -4366,6 +4420,7 @@ window.showmainbutton = function () {
 }
 window.hidemainbutton = function () {
   document.getElementById("batesan").classList.add("hidden");
+  document.getElementById("pickachain").classList.add("hidden");
   document.getElementById("choose-chain-button").classList.add("hidden");
   document.getElementById("campaign-titletitle").classList.add("hidden");
 
@@ -4479,6 +4534,8 @@ showToast(
   3000,
   1000
 );
+
+    reset_screen_main();
 
     await refreshCampaignCache(); //loadCampaigns();
 
@@ -4615,6 +4672,8 @@ window.withdrawCampaign = async function (campaignAddress) {
             );
 
         }
+
+        reset_screen_main();
 
         await refreshCampaignCache(); //loadCampaigns();
 
@@ -4807,6 +4866,8 @@ console.log("ERC20_ABI =", ERC20_ABI);
         );
 
         //await showScreen2();
+
+        reset_screen_main();
 
         await refreshCampaignCache(); //loadCampaigns();
 
@@ -5162,9 +5223,9 @@ hargawisfix =
     );
 
     if (balance < required) {
-      //alert("❌ Insufficient ● USDC.");
+      //alert("❌ Insufficient $USDC.");
     showToast(
-    "❌ Insufficient ● USDC.",
+    "❌ Insufficient $USDC.",
     3000,
     0
     );
@@ -5176,7 +5237,7 @@ hargawisfix =
     // USER PAYS TREASURY
     //
 
-    //alert("▶️ Do approve the ● USDC transfer on your wallet.");
+    //alert("▶️ Do approve the $USDC transfer on your wallet.");
 
     disableBetControls();
 
@@ -5975,23 +6036,23 @@ async function updateUserBalance() {
       balanceEl.textContent = `${formattedBalance} USDC`;
     }
   } catch (e) {
-    console.warn("❌ ● USDC balance fetch failed. ", e);
+    console.warn("❌ $USDC balance fetch failed. ", e);
   }
 }
 
 async function updateBalances() {
   const userBal = await getUserBalance();
   const userEl = document.getElementById('userBalanceDisplay');
-  if (userEl) userEl.innerHTML = `${userBal} ● USDC`;
+  if (userEl) userEl.innerHTML = `${userBal} $USDC`;
 
   //const systemBal = await getSystemBalance();
   //const systemEl = document.getElementById('systemBalanceDisplay');
-  //if (systemEl) systemEl.innerHTML = `${systemBal} ● USDC`;
+  //if (systemEl) systemEl.innerHTML = `${systemBal} $USDC`;
 
   const systemBalX = await refreshVaultBalance();
   const systemBalXX = await refreshLiquidityBalance();
   const systemElX = document.getElementById('systemBalanceDisplay');
-  if (systemElX) systemElX.innerHTML = `${systemBalX} ● USDC`;
+  if (systemElX) systemElX.innerHTML = `${systemBalX} $USDC`;
 }
 
 async function autoClaimReward() {
@@ -6214,7 +6275,7 @@ async function showHistory() {
     "
   >
     <span>🔸 ${new Date(d.timestamp * 1000).toLocaleString()}</span>
-    <span>🔸 ${d.amount} ● USDC</span>
+    <span>🔸 ${d.amount} $USDC</span>
   </div>
 
 </div>
@@ -6253,7 +6314,7 @@ async function showHistory() {
     "
   >
     <span>🔸 ${new Date(t.timestamp * 1000).toLocaleString()}</span>
-    <span>🔸 ${t.amount} ● USDC</span>
+    <span>🔸 ${t.amount} $USDC</span>
   </div>
 
 </div>
@@ -6292,7 +6353,7 @@ async function showHistory() {
     "
   >
     <span>🔸 ${new Date(w.timestamp * 1000).toLocaleString()}</span>
-    <span>🔸 ${w.amount} ● USDC</span>
+    <span>🔸 ${w.amount} $USDC</span>
   </div>
 
 </div>
@@ -6853,6 +6914,8 @@ window.showLeaderboard =
 window.showScreen2 =
   showScreen2;
 
+window.reset_screen_main =
+  reset_screen_main;
 window.reset_screen =
   reset_screen;
 window.reset_screen_date =
