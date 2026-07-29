@@ -2658,8 +2658,8 @@ const userBalFormatted = formatUSDC(userBal);
         <div style="margin:0" class="readonly33">
          <img src="/logo/judul2 copyfit.png"
          style="width:${logoWidth}; height:auto; position: relative; top: 0px;"></div>
-        <div onclick="showHistory()" class="btn_smol_ns">
-        📖
+        <div onclick="window.location.href='https://www.google.com';" class="btn_smol_ns">
+        ?
         </div>
 
         <div onclick="disconnectWallet()" class="btn_smol">
@@ -3084,7 +3084,7 @@ const userBalFormatted = formatUSDC(userBal);
   </div>
 
 <button
-    class="btn_op_rev2" style="font-size:1.1rem;"
+    class="btn_op_rev2P" style="font-size:1.1rem;"
     onclick="showChainlist()">
         all chains</span>
   </button>
@@ -3189,7 +3189,7 @@ const userBalFormatted = formatUSDC(userBal);
     </div>
 
     <button id="showcategorybutton"
-      class="btn_op_rev2" style="font-size:1.1rem; margin-left: 23px;"
+      class="btn_op_rev2" style="font-size:1.1rem; margin-left: 0px;"
       onclick="showCategorylist()"
     >
       general
@@ -3205,17 +3205,17 @@ const userBalFormatted = formatUSDC(userBal);
         <div style="display:flex; align-items:center; gap:10px; margin:10px 0 6px 0;">
         <input type="text"
         id="campaign-deadline"
-        class="inputan"
+        class="inputanP"
         value=""
         placeholder="dd/mm/yyyy"
-        style="flex:50%; text-align:center; border-radius: 9999px; margin-left: margin-right: 120px;"
+        style="text-align:center; border-radius: 9999px; margin-left: margin-right: 120px;"
         >
         <input type="text"
         id="campaign-deadline2"
-        class="inputan"
+        class="inputanP"
         value=""
         placeholder="dd/mm/yyyy"
-        style="flex:50%; text-align:center; border-radius: 9999px; margin-left: margin-right: 120px;"
+        style="text-align:center; border-radius: 9999px; margin-left: margin-right: 120px;"
         >
         </div>
       </div>
@@ -3287,21 +3287,21 @@ const userBalFormatted = formatUSDC(userBal);
     
   <div class="flex-row" style="align-items:center; text-align:center;">
     <button id="depositbutton"
-      class="btn_op_rev2" style="font-size:1.1rem;"
+      class="btn_op_rev2P" style="font-size:1.1rem;"
       onclick="depositCampaign()"
     >
       fund
     </button>
 
     <button id="withdrawbutton"
-      class="btn_op_rev2" style="font-size:1.1rem;"
+      class="btn_op_rev2P" style="font-size:1.1rem;"
       onclick="withdrawCampaign()"
     >
       withdraw
     </button>
 
     <button id="favoriteButton"
-    class="btn_op_rev2" style="font-size:1.1rem;"
+    class="btn_op_rev2P" style="font-size:1.1rem;"
     onclick="toggleFavorite()">
 
     🖤
@@ -3309,7 +3309,7 @@ const userBalFormatted = formatUSDC(userBal);
     </button>
 
     <button id="homebutton"
-      class="btn_op_rev2" style="font-size:1.1rem;"
+      class="btn_op_rev2P" style="font-size:1.1rem;"
       onclick="showHomeScreenRefresh(); showmainbutton()"
     >
       close
@@ -3347,7 +3347,7 @@ const userBalFormatted = formatUSDC(userBal);
       category filter:
     </div>
     <button id="showcategorybuttonfilter"
-      class="btn_op_rev2" style="font-size:1.1rem; margin-left: 23px;"
+      class="btn_op_rev2" style="font-size:1.1rem; margin-left: 0px;"
       onclick="showCategorylist2()"
     >
       all
@@ -3363,7 +3363,7 @@ const userBalFormatted = formatUSDC(userBal);
       status filter:
     </div>
     <button id="showcampaignbuttonfilter"
-      class="btn_op_rev2" style="font-size:1.1rem; margin-left: 23px;"
+      class="btn_op_rev2" style="font-size:1.1rem; margin-left: 0px;"
       onclick="showCategorylist3()"
     >
       all
@@ -3739,7 +3739,7 @@ async function showScreen2NEXT() {
         <div style="margin:0" class="readonly33">
          <img src="/logo/logo_judul_333XX1.png"
          style="width:${logoWidth}; height:auto; position: relative; top: 0px;"></div>
-        <div onclick="showHistory()" class="btn_smol_ns">
+        <div onclick="window.location.href='https://www.google.com';" class="btn_smol_ns">
         📖
         </div>
 
@@ -3910,7 +3910,7 @@ async function showScreen2NEXT() {
   </div>
 
 <button
-    class="btn_op_rev2" style="font-size:1.1rem;"
+    class="btn_op_rev2P" style="font-size:1.1rem; flex: 1;"
     onclick="showChainlist()">
         all chains</span>
   </button>
@@ -5445,6 +5445,14 @@ function disableBetControls() {
     btn.style.cursor = "not-allowed";
   });
 
+  const optionBtnsX3P = document.querySelectorAll('.btn_op_rev2P');
+  optionBtnsX3.forEach(btn => {
+    btn.disabled = true;
+    btn.style.pointerEvents = 'none';
+    btn.style.opacity = "0.6";
+    btn.style.cursor = "not-allowed";
+  });
+
   const optionBtnsX1 = document.querySelectorAll('.btn_smol_ns');
   optionBtnsX1.forEach(btn => {
     btn.disabled = true;
@@ -5546,6 +5554,14 @@ function enableBetControls() {
   });
 
   const optionBtnsX3 = document.querySelectorAll('.btn_op_rev2');
+  optionBtnsX3.forEach(btn => {
+    btn.disabled = false;
+    btn.style.pointerEvents = 'auto';
+    btn.style.opacity = "1";
+    btn.style.cursor = "pointer";
+  });
+
+  const optionBtnsX3P = document.querySelectorAll('.btn_op_rev2P');
   optionBtnsX3.forEach(btn => {
     btn.disabled = false;
     btn.style.pointerEvents = 'auto';

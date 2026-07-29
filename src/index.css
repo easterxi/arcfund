@@ -1,5 +1,6 @@
 :root {
   --warna_tombol: #58a3e9;
+  --warna_tombol_penting: #ff0000;
   --warna_text: rgb(0, 100, 200);
   --warna_bayangan_sorot: rgba(0, 255, 255, 0.6);
   --warna_bayangan_kotakan: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
@@ -346,7 +347,7 @@ background: var(--warna_tombol);
   font-weight: bold;
   cursor: pointer;
   border-radius: 8px;
-  flex: 1;
+  /*flex: 1;*/
   min-width: 90px;
   box-shadow: var(--warna_bayangan_kotakan);
 }
@@ -360,6 +361,45 @@ background: var(--warna_tombol);
   transform: scale(1.01);
 }
 
+.btn_op_rev2P {
+background: var(--warna_tombol);
+  color: rgb(255, 255, 255);
+  /* text-shadow: 1px 1px 2px black, 0 0 1px black; */
+  text-shadow: var(--warna_bayangan_text);
+  /*
+  color: rgb(255, 255, 255);
+  text-shadow: 1px 2px rgba(0, 0, 0, 0.5);
+  border: none;
+  */
+
+  border: 3px solid transparent;
+  border-radius: 3px;
+  background: 
+    linear-gradient(var(--warna_tombol), var(--warna_tombol)) padding-box, /* Inner background color */
+    linear-gradient(to right, var(--warna_tombol), #ffffff) border-box; /* Border gradient */
+
+  filter: var(--warna_bayangan_drop);
+
+  padding: 15px 12px;
+  margin: 4px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 8px;
+  flex: 1;
+  min-width: 90px;
+  box-shadow: var(--warna_bayangan_kotakan);
+}
+
+.btn_op_rev2P:hover {text-shadow: 1px 1px 2px var(--warna_bayangan_sorot); box-shadow: 0 8px 16px 0 var(--warna_bayangan_sorot);}
+.btn_op_rev2P.disabledbtn {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+.btn_op_rev2P:active {
+  transform: scale(1.01);
+}
+
 .txtxt {
   /* text-shadow: 1px 1px 2px black, 0 0 1px black; */
   text-shadow: var(--warna_bayangan_text);
@@ -368,7 +408,7 @@ background: var(--warna_tombol);
 }
 
 .btn_smol_ns {
-  background: var(--warna_tombol);
+  background: var(--warna_tombol_penting);
   color: rgb(255, 255, 255);
   /*
   text-shadow: 1px 1px 2px black, 0 0 1px black, 0 0 1px black;
@@ -381,8 +421,8 @@ background: var(--warna_tombol);
   border: 3px solid transparent;
   border-radius: 3px;
   background: 
-    linear-gradient(var(--warna_tombol), var(--warna_tombol)) padding-box, /* Inner background color */
-    linear-gradient(to right, var(--warna_tombol), #ffffff) border-box; /* Border gradient */
+    linear-gradient(var(--warna_tombol_penting), var(--warna_tombol_penting)) padding-box, /* Inner background color */
+    linear-gradient(to right, var(--warna_tombol_penting), #ffffff) border-box; /* Border gradient */
 
   padding: 6px 12px;
   font-size: 0.95rem;
@@ -961,6 +1001,27 @@ select.rounded-select:hover {
 
   box-shadow: var(--warna_bayangan_kotakan);
 }
+.inputanP {
+  background: rgb(255, 255, 255); /*rgba(0, 0, 0, 0.6); #f8f8f8;*/
+  border: 2px solid var(--warna_text);
+  font-size: 1.3rem;
+  text-align: center;
+  padding: 10px;
+  width: 228px;
+  margin: 6px 0;
+  border-radius: var(--mbunder);
+  /* text-shadow: 1px 1px 2px black, 0 0 1px black, 0 0 1px black; */
+  /* text-shadow: 1px 1px 2px black, 0 0 1px black; */
+  text-shadow: var(--warna_bayangan_text);
+
+  background: 
+    linear-gradient(#ffffff, #ffffff) padding-box, /* Inner background color */
+    linear-gradient(to right, var(--warna_text), var(--warna_text)) border-box; /* Border gradient */
+
+  color: var(--warna_text);
+
+  box-shadow: var(--warna_bayangan_kotakan);
+}
 .inputan_ombo {
   font-family: Arial, sans-serif;
   background: rgb(255, 255, 255); /*rgba(0, 0, 0, 0.6); #f8f8f8;*/
@@ -1114,7 +1175,7 @@ select.rounded-select:hover {
   flex-wrap: wrap;
 }
 
-.btn, .btn-grad, .option-btn, .option-btn.active, .btn_rev, .btn_op_rev, .btn_op_rev2, .btn_smol, .btn_smol_ns, .btn_green, .btn_red {
+.btn, .btn-grad, .option-btn, .option-btn.active, .btn_rev, .btn_op_rev, .btn_op_rev2, .btn_op_rev2P, .btn_smol, .btn_smol_ns, .btn_green, .btn_red {
   border-radius: var(--mbunder);   /* Fully rounded */
 }
 
@@ -1188,10 +1249,16 @@ input[readonly_txt2] {
   }
 
   .inputan_readonly {
-    font-size: 13px;
+    font-size: 16px; /*13px;*/
   }
   .inputan {
-    font-size: 13px;
+    font-size: 16px; /*13px;*/
+  }
+  .inputanP {
+    font-size: 16px; /*13px;*/
+  }
+  .inputan_ombo {
+    font-size: 16px; /*13px;*/
   }
 
   .txtxt {
@@ -1208,12 +1275,18 @@ input[readonly_txt2] {
   .inputan {
     width:100% !important;
   }
+  .inputanP {
+    width:100% !important;
+  }
   .btn_op_rev2 {
+    margin-left: 2px !important;
+  }
+  .btn_op_rev2P {
     margin-left: 2px !important;
   }
 }
 
-.option-btn-circle, .btn_op_rev2 {
+.option-btn-circle, .btn_op_rev2, .btn_op_rev2P {
   width:228px !important;
   justify-content: center;
   align-items: center;
