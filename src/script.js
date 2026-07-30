@@ -2658,7 +2658,7 @@ const userBalFormatted = formatUSDC(userBal);
         <div style="margin:0" class="readonly33">
          <img src="/logo/judul2 copyfit.png"
          style="width:${logoWidth}; height:auto; position: relative; top: 0px;"></div>
-        <div onclick="window.location.href='https://www.google.com';" class="btn_smol_ns">
+        <div onclick="window.open('https://www.google.com', '_blank', 'noopener,noreferrer');" class="btn_smol_ns">
         ?
         </div>
 
