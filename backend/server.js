@@ -295,9 +295,19 @@ function jsonBigInt(obj) {
 }
 
 function getAdapter() {
-  return createEthersAdapterFromPrivateKey({
-    privateKey: process.env.SYSTEM_PRIVATE_KEY
-  });
+    return createEthersAdapterFromPrivateKey({
+        privateKey: process.env.SYSTEM_PRIVATE_KEY,
+
+        getProvider: ({ chain }) => {
+            const rpc = RPCS[chain.chain];
+
+            if (!rpc) {
+                throw new Error(`No RPC for ${chain.chain}`);
+            }
+
+            return new ethers.JsonRpcProvider(rpc);
+        }
+    });
 }
 
 // Always use Arc Testnet as Treasury

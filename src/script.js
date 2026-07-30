@@ -2735,56 +2735,56 @@ const userBalFormatted = formatUSDC(userBal);
     <div class="flex-row" style="flex-direction: column;">
 
       <div id="arc-testnetchainbutton" 
-        class="option-btn-circle cheeeinbutton}"
+        class="option-btn-circle cheeeinbutton"
         onclick="changeChainAndClose('arc-testnet')"
       >
         <img src="/logo/n_arc_logo_small2.png" width="32" style="position: relative; top: 1px;">
       </div>
 
       <div id="base-sepoliachainbutton" 
-        class="option-btn-circle cheeeinbutton}"
+        class="option-btn-circle cheeeinbutton"
         onclick="changeChainAndClose('base-sepolia')"
       >
         <img src="/logo/base_logo_small.png" width="32" style="position: relative; top: 1px;">
       </div>
 
       <div id="eth-sepoliachainbutton" 
-        class="option-btn-circle-unsupported cheeeinbutton}"
+        class="option-btn-circle-unsupported cheeeinbutton"
         onclick="event.stopPropagation(); gekunsupported();"
       >
         <img src="/logo/eth_logo_small.png" width="32" style="position: relative; top: 1px;">
       </div>
 
       <div id="arbitrum-sepoliachainbutton" 
-        class="option-btn-circle cheeeinbutton}"
+        class="option-btn-circle cheeeinbutton"
         onclick="changeChainAndClose('arbitrum-sepolia')"
       >
         <img src="/logo/arb_logo_small.png" width="32" style="position: relative; top: 1px;">
       </div>
 
       <div id="unichain-sepoliachainbutton" 
-        class="option-btn-circle cheeeinbutton}"
+        class="option-btn-circle cheeeinbutton"
         onclick="changeChainAndClose('unichain-sepolia')"
       >
         <img src="/logo/uni_logo_small_testnet.png" width="32" style="position: relative; top: 1px;">
       </div>
 
       <div id="avalanche-fujichainbutton" 
-        class="option-btn-circle cheeeinbutton}"
+        class="option-btn-circle cheeeinbutton"
         onclick="changeChainAndClose('avalanche-fuji')"
       >
         <img src="/logo/avax_logo_small.png" width="32" style="position: relative; top: 1px;">
       </div>
 
       <div id="hyperevm-testnetchainbutton" 
-        class="option-btn-circle cheeeinbutton}"
+        class="option-btn-circle cheeeinbutton"
         onclick="changeChainAndClose('hyperevm-testnet')"
       >
         <img src="/logo/hype_logo_small.png" width="32" style="position: relative; top: 1px;">
       </div>
 
       <div id="ink-sepoliachainbutton" 
-        class="option-btn-circle cheeeinbutton}"
+        class="option-btn-circle cheeeinbutton"
         onclick="changeChainAndClose('ink-sepolia')"
       >
         <img src="/logo/ink_logo_small.png" width="32" style="position: relative; top: 1px;">
@@ -3066,7 +3066,7 @@ const userBalFormatted = formatUSDC(userBal);
 <div id="choose-chain-button" class="flex-row" style="align-items:center;">
 
   <div id="arc-testnetchainbutton2" 
-    class="option-btn-circle cheeeinbutton}"
+    class="option-btn-circle cheeeinbutton"
     onclick="changeChain('arc-testnet')"
   >
     <img src="/logo/n_arc_logo_small2.png"
@@ -3075,7 +3075,7 @@ const userBalFormatted = formatUSDC(userBal);
   </div>
 
   <div  id="base-sepoliachainbutton2" 
-    class="option-btn-circle cheeeinbutton}"
+    class="option-btn-circle cheeeinbutton"
     onclick="changeChain('base-sepolia')"
   >
     <img src="/logo/base_logo_small.png"
