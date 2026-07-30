@@ -2773,8 +2773,27 @@ app.post(
             // Verify campaign already withdrawn
             //
 
+console.log("campaign =", campaignAddress);
+
+console.log(
+    "provider block =",
+    await treasuryWallet.provider.getBlockNumber()
+);
+
+console.log(
+    "withdrawn =",
+    await campaign.withdrawn()
+);
+
+console.log(
+    "currentAmount =",
+    (await campaign.currentAmount()).toString()
+);
+
             const withdrawn =
                 await campaign.withdrawn();
+
+                console.log("withdrawn =", withdrawn);
 
             if (!withdrawn) {
 

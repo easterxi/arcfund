@@ -3547,15 +3547,15 @@ reset_screen_date();
   
   updateBalances();
 
-if (balanceInterval) {
-  clearInterval(balanceInterval);
-}
+//if (balanceInterval) {
+  //clearInterval(balanceInterval);
+//}
 
-balanceInterval =
-  setInterval(
-    updateBalances,
-    1000
-  );
+//balanceInterval =
+  //setInterval(
+    //updateBalances,
+    //1000
+  //);
 }
 
 async function reset_screen_balance() {
@@ -4324,15 +4324,15 @@ function setupKeyInput() {
   //startLivePriceUpdates();
   updateBalances();
 
-if (balanceInterval) {
-  clearInterval(balanceInterval);
-}
+//if (balanceInterval) {
+  //clearInterval(balanceInterval);
+//}
 
-balanceInterval =
-  setInterval(
-    updateBalances,
-    1000
-  );
+//balanceInterval =
+  //setInterval(
+    //updateBalances,
+    //1000
+  //);
 
   updatePriceTitle();
 }
@@ -4598,6 +4598,16 @@ window.withdrawCampaign = async function (campaignAddress) {
             await campaign.withdrawToTreasury();
 
         await withdrawTx.wait();
+
+        console.log(
+    "frontend block =",
+    await provider.getBlockNumber()
+);
+
+console.log(
+    "campaign =",
+    selectedCampaign
+);
 
         //
         // Notify backend
@@ -5100,7 +5110,7 @@ function startLivePriceUpdates() {
   };
 
   updatePrices();                    // Immediate update
-  livePriceInterval = setInterval(updatePrices, 1000); // 1 second
+  //livePriceInterval = setInterval(updatePrices, 1000); // 1 second
 }
 
 async function getPrice(asset) {
