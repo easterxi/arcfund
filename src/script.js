@@ -1544,7 +1544,7 @@ function showScreen1() {
 
 <!-- GitHub Icon - Centered at the very bottom -->
 <div style="text-align:center; margin-top:20px;">
-  <a href="https://github.com/kaduanganu/arcvault"
+  <a href="https://github.com/kaduanganu/arcfund"
      target="_blank"
      style="
        color:#555;
