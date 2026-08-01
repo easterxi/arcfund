@@ -4,7 +4,7 @@ import { ERC20_ABI } from "../crowdfunding-contracts/abis/ERC20ABI.js";
 
 window.ethers = ethers;
 
-const FACTORY_ADDRESS = "0x5220bf3198220E981f90fdDf9049bb7ce22d7B13"
+const FACTORY_ADDRESS = "0x52B83f4E9C3a362f4C403AC0AC96943489b98C76"
 
 const CREATION_FEE = "1";
 
@@ -844,6 +844,8 @@ if (campaigns.length === 0) {
 </div>
 
 `;
+
+hideLoading();
 
     return;
 }
@@ -4678,9 +4680,6 @@ const provider =
 const signer =
     await provider.getSigner();
 
-const userAddress =
-    await signer.getAddress();
-
 const message =
     `Withdraw campaign ${selectedCampaign}`;
 
@@ -4688,7 +4687,7 @@ const signature =
     await signer.signMessage(
         message
     );
-    
+
         //
         // Notify backend
         //
@@ -4708,17 +4707,21 @@ const signature =
 
                 },
 
-                body: JSON.stringify({
+body: JSON.stringify({
 
-                    campaignAddress:
-                        selectedCampaign,
+    campaignAddress:
+        selectedCampaign,
 
-                    userAddress,
+    userAddress,
 
-                    destinationChain:
-                        selectedChain
+    destinationChain:
+        selectedChain,
 
-                })
+    message,
+
+    signature
+
+})
 
             }
 

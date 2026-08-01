@@ -2750,6 +2750,8 @@ const recovered =
         signature
     );
 
+    console.log(req.body);
+
 if (
 
     recovered.toLowerCase() !==
