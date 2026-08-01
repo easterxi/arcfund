@@ -2758,12 +2758,12 @@ app.post(
 
 console.log(
     "Campaign:",
-    selectedCampaign
+    campaignAddress
 );
 
 console.log(
     "Code:",
-    await provider.getCode(selectedCampaign)
+    await provider.getCode(campaignAddress)
 );
 
             const creator =
