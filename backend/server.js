@@ -2724,15 +2724,50 @@ app.post(
 
         try {
 
-            const {
+const {
 
-                campaignAddress,
+    campaignAddress,
 
-                userAddress,
+    userAddress,
 
-                destinationChain
+    destinationChain,
 
-            } = req.body;
+    message,
+
+    signature
+
+} = req.body;
+
+
+
+//
+// Verify wallet signature
+//
+
+const recovered =
+    ethers.verifyMessage(
+        message,
+        signature
+    );
+
+if (
+
+    recovered.toLowerCase() !==
+    userAddress.toLowerCase()
+
+) {
+
+    return res.status(401).json({
+
+        success: false,
+
+        error: "Invalid signature"
+
+    });
+
+}
+
+
 
             const campaign =
                 new ethers.Contract(
@@ -2759,8 +2794,8 @@ app.post(
 
             if (
 
-                creator.toLowerCase() !==
-                userAddress.toLowerCase()
+    creator.toLowerCase() !==
+    recovered.toLowerCase()
 
             ) {
 
@@ -2786,6 +2821,11 @@ app.post(
 
             const amount =
                 await campaign.currentAmount();
+
+    const tx =
+    await campaign.withdrawToTreasury();
+
+    await tx.wait();
 
             //
             // Same chain

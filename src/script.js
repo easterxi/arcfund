@@ -4561,7 +4561,13 @@ showToast(
 
 window.withdrawCampaign = async function (campaignAddress) {
 
+    //let originalChainId;
+  
     try {
+
+    //originalChainId = await window.ethereum.request({
+        //method: "eth_chainId"
+    //});
 
         showLoading();
 
@@ -4573,6 +4579,7 @@ window.withdrawCampaign = async function (campaignAddress) {
 // Switch to Arc Testnet first
 //
 
+/*
 const ARC_CHAIN_ID = "0x4cef52"; // <-- Replace with the REAL Arc chain ID in hex
 
 try {
@@ -4591,8 +4598,8 @@ try {
                 chainName: "ARC Testnet",
                 rpcUrls: [CONFIG.main_rpc],
                 nativeCurrency: {
-                    name: "ARC",
-                    symbol: "ARC",
+                    name: "USDC",
+                    symbol: "USDC",
                     decimals: 18
                 },
                 blockExplorerUrls: [
@@ -4605,11 +4612,13 @@ try {
         throw err;
     }
 }
+*/
 
 //
 // Create provider AFTER switching
 //
 
+/*
 const provider =
     new ethers.BrowserProvider(
         window.ethereum
@@ -4655,7 +4664,30 @@ console.log(
     "Receipt block:",
     receipt.blockNumber
 );
+*/
+    
+//
+// Sign message
+//
 
+const provider =
+    new ethers.BrowserProvider(
+        window.ethereum
+    );
+
+const signer =
+    await provider.getSigner();
+
+const userAddress =
+    await signer.getAddress();
+
+const message =
+    `Withdraw campaign ${selectedCampaign}`;
+
+const signature =
+    await signer.signMessage(
+        message
+    );
     
         //
         // Notify backend
@@ -4743,6 +4775,12 @@ console.log(
 
     } catch (e) {
 
+          if (e.code === "ACTION_REJECTED" || e.code === 4001) {
+
+        hideLoading();
+        return;
+
+    }
         console.error(e);
 
         hideLoading();
@@ -4760,6 +4798,31 @@ console.log(
         );
 
     }
+
+    /*
+    finally {
+
+    if (originalChainId) {
+
+        try {
+
+            await window.ethereum.request({
+                method: "wallet_switchEthereumChain",
+                params: [{
+                    chainId: originalChainId
+                }]
+            });
+
+        } catch (e) {
+
+            console.warn("Couldn't switch back", e);
+
+        }
+
+    }
+
+}
+*/
 
 };
 

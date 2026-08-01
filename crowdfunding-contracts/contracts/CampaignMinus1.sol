@@ -53,14 +53,6 @@ string public category;
         _;
     }
 
-modifier onlyTreasury() {
-    require(
-        msg.sender == treasury,
-        "Treasury only"
-    );
-    _;
-}
-
     function initialize(
         address _creator,
         address _treasury,
@@ -317,7 +309,7 @@ function withdrawTo(
 
 function withdrawToTreasury()
     external
-    onlyTreasury
+    onlyCreator
 {
     require(
         canWithdraw(),
