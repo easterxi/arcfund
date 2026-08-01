@@ -2734,6 +2734,8 @@ app.post(
 
             } = req.body;
 
+            console.log("campaignAddress =", campaignAddress);
+            
             const campaign =
                 new ethers.Contract(
 

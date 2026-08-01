@@ -4598,6 +4598,7 @@ window.withdrawCampaign = async function (campaignAddress) {
 
         console.log("selectedCampaignXXX =", selectedCampaign);
         console.log("campaignAddressXXX =", campaignAddress);
+        console.log("userAddress =", userAddress);
 
         const withdrawTx =
             await campaign.withdrawToTreasury();
