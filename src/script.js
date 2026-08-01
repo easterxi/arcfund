@@ -4524,7 +4524,7 @@ window.createCampaign = async function () {
 
     hideLoading()
 
-    console.log(data);
+    //console.log(data);
 
     showToast(
       `✅ Campaign created.`,
@@ -4599,44 +4599,6 @@ window.withdrawCampaign = async function (campaignAddress) {
 
 const receipt =
     await withdrawTx.wait();
-
-        console.log("status =", receipt.status);
-console.log("tx =", receipt.hash);
-
-        console.log(
-    "frontend block =",
-    await provider.getBlockNumber()
-);
-
-console.log(
-    "campaign =",
-    selectedCampaign
-);
-
-console.log(
-    "withdraw tx =",
-    withdrawTx.hash
-);
-
-console.log(
-    "withdrawn =",
-    await campaign.withdrawToTreasury()
-);
-
-console.log(
-    "currentAmount =",
-    (await campaign.currentAmount()).toString()
-);
-
-        console.log(
-    "frontend block =",
-    await provider.getBlockNumber()
-);
-
-console.log(
-    "campaign =",
-    selectedCampaign
-);
 
         //
         // Notify backend
@@ -4804,8 +4766,8 @@ if (amount > (yanggoalraw - yangraisedraw)) {
                 selectedChain
             ];
 
-console.log(amount);
-console.log(typeof amount);
+//console.log(amount);
+//console.log(typeof amount);
 
         const parsedAmount =
             ethers.parseUnits(
@@ -4814,13 +4776,6 @@ console.log(typeof amount);
 
                 6
             );
-
-console.log("Selected campaign:", selectedCampaign);
-console.log("selectedChain =", selectedChain);
-console.log("chain =", chain);
-console.log("chain.usdcAddress =", chain?.usdcAddress);
-console.log("signer =", signer);
-console.log("ERC20_ABI =", ERC20_ABI);
 
         const usdc =
             new ethers.Contract(
@@ -5792,7 +5747,7 @@ async function getUserBalance() {
 
   const data = await response.json();
 
-  console.log("Balance response:", data);
+  //console.log("Balance response:", data);
 
   return parseFloat(
     data.balance
