@@ -2734,11 +2734,6 @@ app.post(
 
             } = req.body;
 
-            console.log(
-    "Backend withdrawn before:",
-    await campaign.withdrawn()
-);
-
             const campaign =
                 new ethers.Contract(
 
@@ -2749,6 +2744,11 @@ app.post(
                     treasuryWallet
 
                 );
+
+                            console.log(
+    "Backend withdrawn before:",
+    await campaign.withdrawn()
+);
 
             //
             // Verify creator
