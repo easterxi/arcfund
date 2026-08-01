@@ -3547,15 +3547,15 @@ reset_screen_date();
   
   updateBalances();
 
-//if (balanceInterval) {
-  //clearInterval(balanceInterval);
-//}
+if (balanceInterval) {
+  clearInterval(balanceInterval);
+}
 
-//balanceInterval =
-  //setInterval(
-    //updateBalances,
-    //1000
-  //);
+balanceInterval =
+  setInterval(
+    updateBalances,
+    1000
+  );
 }
 
 async function reset_screen_balance() {
@@ -4598,6 +4598,34 @@ window.withdrawCampaign = async function (campaignAddress) {
             await campaign.withdrawToTreasury();
 
         await withdrawTx.wait();
+
+        console.log("status =", receipt.status);
+console.log("tx =", receipt.hash);
+
+        console.log(
+    "frontend block =",
+    await provider.getBlockNumber()
+);
+
+console.log(
+    "campaign =",
+    selectedCampaign
+);
+
+console.log(
+    "withdraw tx =",
+    withdrawTx.hash
+);
+
+console.log(
+    "withdrawn =",
+    await campaign.withdrawn()
+);
+
+console.log(
+    "currentAmount =",
+    (await campaign.currentAmount()).toString()
+);
 
         console.log(
     "frontend block =",
