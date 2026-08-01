@@ -1808,6 +1808,8 @@ window.changeChain = async function(chainKey) {
 
     //showHomeScreen();
 
+    updateBalances();
+
   } catch (err) {
     console.error(err);
     //alert("❌ Chain switch failed.");
@@ -3547,15 +3549,15 @@ reset_screen_date();
   
   updateBalances();
 
-if (balanceInterval) {
-  clearInterval(balanceInterval);
-}
+//if (balanceInterval) {
+  //clearInterval(balanceInterval);
+//}
 
-balanceInterval =
-  setInterval(
-    updateBalances,
-    1000
-  );
+//balanceInterval =
+  //setInterval(
+    //updateBalances,
+    //1000
+  //);
 }
 
 async function reset_screen_balance() {
@@ -3923,7 +3925,7 @@ async function showScreen2NEXT() {
 <hr>
 
       <div class="inputan" style="display:flex; justify-content:space-between; align-items:center;">
-        🔸 on wallet • <span id="userBalanceDisplay"> ${userBalFormatted} $USDC</span>
+        🔸 on wallet • <span id="userBalanceDisplayQWERTY"> ${userBalFormatted} $USDC</span>
       </div>
       <div class="readonly3" style="display:flex; justify-content:space-between; align-items:center;">
         🔸 on vault • <span id="systemBalanceDisplay"> ${systemBalXFormatted} $USDC</span>
@@ -4648,6 +4650,8 @@ const receipt =
 
         }
 
+        updateBalances();
+        
         hideLoading();
 
         if (result.bridged) {
@@ -4849,6 +4853,8 @@ if (amount > (yanggoalraw - yangraisedraw)) {
                 result.error
             );
         }
+
+        updateBalances();
 
         hideLoading();
 
