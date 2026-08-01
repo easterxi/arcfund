@@ -4569,45 +4569,94 @@ window.withdrawCampaign = async function (campaignAddress) {
         // Creator signs withdrawal
         //
 
-        const provider =
-            new ethers.BrowserProvider(
-                window.ethereum
-            );
+ //
+// Switch to Arc Testnet first
+//
 
-        const signer =
-            await provider.getSigner();
+const ARC_CHAIN_ID = "0x4cef52"; // <-- Replace with the REAL Arc chain ID in hex
 
-        const campaign =
-            new ethers.Contract(
+try {
+    await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId: ARC_CHAIN_ID }]
+    });
+} catch (err) {
 
-                selectedCampaign,
+    if (err.code === 4902) {
 
-                CAMPAIGN_ABI,
+        await window.ethereum.request({
+            method: "wallet_addEthereumChain",
+            params: [{
+                chainId: ARC_CHAIN_ID,
+                chainName: "ARC Testnet",
+                rpcUrls: [CONFIG.main_rpc],
+                nativeCurrency: {
+                    name: "ARC",
+                    symbol: "ARC",
+                    decimals: 18
+                },
+                blockExplorerUrls: [
+                    "https://testnet.arcscan.app"
+                ]
+            }]
+        });
 
-                signer
-            );
+    } else {
+        throw err;
+    }
+}
 
-        //showToast(
+//
+// Create provider AFTER switching
+//
 
-            //"⏳ Waiting for wallet...",
+const provider =
+    new ethers.BrowserProvider(
+        window.ethereum
+    );
 
-            //5000,
+const signer =
+    await provider.getSigner();
 
-            //0
-        //);
+const campaign =
+    new ethers.Contract(
+        selectedCampaign,
+        CAMPAIGN_ABI,
+        signer
+    );
 
-        const withdrawTx =
-            await campaign.withdrawToTreasury();
+console.log(
+    "Wallet chain:",
+    await provider.getNetwork()
+);
+
+console.log(
+    "Contract code:",
+    await provider.getCode(selectedCampaign)
+);
+
+const withdrawTx =
+    await campaign.withdrawToTreasury();
+
+console.log(
+    "Withdraw tx:",
+    withdrawTx.hash
+);
 
 const receipt =
     await withdrawTx.wait();
 
-    console.log("Withdraw tx:", withdrawTx.hash);
+console.log(
+    "Receipt status:",
+    receipt.status
+);
 
-const tx = await provider.getTransaction(withdrawTx.hash);
+console.log(
+    "Receipt block:",
+    receipt.blockNumber
+);
 
-console.log(tx);
-
+    
         //
         // Notify backend
         //
