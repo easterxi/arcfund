@@ -4597,7 +4597,8 @@ window.withdrawCampaign = async function (campaignAddress) {
         const withdrawTx =
             await campaign.withdrawToTreasury();
 
-        await withdrawTx.wait();
+const receipt =
+    await withdrawTx.wait();
 
         console.log("status =", receipt.status);
 console.log("tx =", receipt.hash);
@@ -4619,7 +4620,7 @@ console.log(
 
 console.log(
     "withdrawn =",
-    await campaign.withdrawn()
+    await campaign.withdrawToTreasury()
 );
 
 console.log(

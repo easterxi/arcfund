@@ -2782,7 +2782,7 @@ console.log(
 
 console.log(
     "withdrawn =",
-    await campaign.withdrawn()
+    await campaign.withdrawToTreasury()
 );
 
 console.log(
@@ -2791,7 +2791,7 @@ console.log(
 );
 
             const withdrawn =
-                await campaign.withdrawn();
+                await campaign.withdrawToTreasury();
 
                 console.log("withdrawn =", withdrawn);
 
