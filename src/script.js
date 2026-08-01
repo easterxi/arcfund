@@ -4600,21 +4600,6 @@ window.withdrawCampaign = async function (campaignAddress) {
         console.log("campaignAddressXXX =", campaignAddress);
         console.log("userAddress =", userAddress);
 
-console.log(
-    "Wallet =",
-    await signer.getAddress()
-);
-
-console.log(
-    "Creator =",
-    await campaign.creator()
-);
-
-console.log(
-    "Withdrawn =",
-    await campaign.withdrawn()
-);
-
         const withdrawTx =
             await campaign.withdrawToTreasury();
 
