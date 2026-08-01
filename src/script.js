@@ -4748,7 +4748,7 @@ body: JSON.stringify({
 
             showToast(
 
-                "✅ Withdraw bridged.",
+                "✅ Withdraw succeed.",
 
                 3000,
 

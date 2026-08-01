@@ -2782,11 +2782,6 @@ if (
 
                 );
 
-                            console.log(
-    "Backend withdrawn before:",
-    await campaign.withdrawn()
-);
-
             //
             // Verify creator
             //
@@ -2918,11 +2913,6 @@ if (
                     token: "USDC"
 
                 });
-
-                console.log(
-    "Backend withdrawn after:",
-    await campaign.withdrawn()
-);
 
 return res.send(
     JSON.stringify(
