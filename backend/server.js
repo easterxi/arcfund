@@ -2773,40 +2773,6 @@ app.post(
             // Verify campaign already withdrawn
             //
 
-console.log("campaign =", campaignAddress);
-
-console.log(
-    "provider block =",
-    await treasuryWallet.provider.getBlockNumber()
-);
-
-console.log(
-    "withdrawn =",
-    await campaign.withdrawToTreasury()
-);
-
-console.log(
-    "currentAmount =",
-    (await campaign.currentAmount()).toString()
-);
-
-            const withdrawn =
-                await campaign.withdrawToTreasury();
-
-                console.log("withdrawn =", withdrawn);
-
-            if (!withdrawn) {
-
-                return res.status(400).json({
-
-                    success: false,
-
-                    error: "Withdraw transaction not completed"
-
-                });
-
-            }
-
             //
             // Amount
             //
