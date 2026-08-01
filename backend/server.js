@@ -2722,6 +2722,8 @@ app.post(
 
     async (req, res) => {
 
+      console.log("campaignAddressYYY =", campaignAddress);
+
         try {
 
             const {
@@ -2773,20 +2775,7 @@ app.post(
             // Verify campaign already withdrawn
             //
 
-            const withdrawn =
-                await campaign.withdrawToTreasury();
-
-            if (!withdrawn) {
-
-                return res.status(400).json({
-
-                    success: false,
-
-                    error: "Withdraw transaction not completed"
-
-                });
-
-            }
+            //qwerty
 
             //
             // Amount
