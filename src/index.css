@@ -10,10 +10,6 @@
   --mbunder_tenan: 50%;
 }
 
-body {
-    background-color: rgb(26, 27, 27);
-}
-
 .main-container {
   max-width: 480px;
   width: 90%;
