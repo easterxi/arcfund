@@ -4602,6 +4602,12 @@ window.withdrawCampaign = async function (campaignAddress) {
 const receipt =
     await withdrawTx.wait();
 
+    console.log("Withdraw tx:", withdrawTx.hash);
+
+const tx = await provider.getTransaction(withdrawTx.hash);
+
+console.log(tx);
+
         //
         // Notify backend
         //
