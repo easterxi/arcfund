@@ -445,7 +445,7 @@ function showToast(
     <div style="
       position:fixed;
       top:${20 + document.querySelectorAll('.toast').length * 60}px;
-      background:rgba(0, 100, 200, 0.9);
+      background:rgba(255, 136, 0, 0.9);
       color:white;
       padding:12px 20px;
       border: 3px solid rgb(255, 255, 255, 0.8);
@@ -455,6 +455,7 @@ function showToast(
       align-items:center;
       gap:10px;
       width:fit-content;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
   width:max-content;
   max-width:90vw;
   white-space:nowrap;
@@ -1333,11 +1334,11 @@ html += `
       </div>
 
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        category: <span>${category}</span>
+        ● category: <span>${category}</span>
       </div>
 
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        target: <span>${currentformated}/${targetformated} $USDC</span>
+        ● target: <span>${currentformated}/${targetformated} $USDC</span>
       </div>
 
 <div id="fund-campaign-button" style="align-items:center; text-align:center;">
@@ -1555,6 +1556,7 @@ function showScreen1() {
        display:inline-flex;
        align-items:center;
        gap:8px;
+       filter: invert(1);
      ">
     <img src="https://github.githubassets.com/favicons/favicon.png"
          width="32"
@@ -2663,7 +2665,7 @@ const userBalFormatted = formatUSDC(userBal);
          <img src="/logo/judul2 copyfit.png"
          style="width:${logoWidth}; height:auto; position: relative; top: 0px;"></div>
         <div onclick="window.open('https://www.google.com', '_blank', 'noopener,noreferrer');" class="btn_smol_ns">
-        ?
+        📚
         </div>
 
         <div onclick="disconnectWallet()" class="btn_smol">
@@ -2753,8 +2755,9 @@ const userBalFormatted = formatUSDC(userBal);
       </div>
 
       <div id="eth-sepoliachainbutton" 
-        class="option-btn-circle-unsupported cheeeinbutton"
-        onclick="event.stopPropagation(); gekunsupported();"
+        class="option-btn-circle cheeeinbutton"
+        onclick="changeChainAndClose('eth-sepolia')"
+
       >
         <img src="/logo/eth_logo_small.png" width="32" style="position: relative; top: 1px;">
       </div>
@@ -3099,15 +3102,15 @@ const userBalFormatted = formatUSDC(userBal);
 <div style="height:20px;"></div>
 
 <div class="divider-container" id="hr_xxxxxx1">
-  <span class="divider-icon">✦</span>
+  <span class="divider-icon">●</span>
 </div>
 
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        on wallet: <span id="userBalanceDisplay"> ${userBalFormatted} $USDC</span>
+        ● on wallet: <span id="userBalanceDisplay"> ${userBalFormatted} $USDC</span>
       </div>
 
 <div class="divider-container" id="hr_xxxxxx2">
-  <span class="divider-icon">✦</span>
+  <span class="divider-icon">●</span>
 </div>
 
 <div id="batesan_xxx" style="height:10px;"></div>
@@ -3123,7 +3126,7 @@ const userBalFormatted = formatUSDC(userBal);
 <div id="batesan_xxx2" style="height:10px;"></div>
 
 <div class="divider-container" id="hr_xxx">
-  <span class="divider-icon">✦</span>
+  <span class="divider-icon">●</span>
 </div>
 
       <div id="campaign-titletitle" class="readonly2X" style="font-size:1.8rem; text-align:center;">
@@ -3142,7 +3145,7 @@ const userBalFormatted = formatUSDC(userBal);
       </div>
 
       <div class="divider-container" id="hr_xxxxxx3">
-        <span class="divider-icon">✦</span>
+        <span class="divider-icon">●</span>
       </div>
 
       <div style="display:flex; flex-direction: column; align-items:center; gap:10px; margin:10px 0 6px 0;">
@@ -3189,7 +3192,7 @@ const userBalFormatted = formatUSDC(userBal);
     <div 
       class="readonly2" style="font-size:1.1rem; flex: 1;"
     >
-      category:
+      ● category:
     </div>
 
     <button id="showcategorybutton"
@@ -3203,7 +3206,7 @@ const userBalFormatted = formatUSDC(userBal);
     
       <div style="display:flex; flex-direction: column; align-items:center; gap:10px; margin:10px 0 6px 0;">    
       <div class="readonly2" style="font-size:1.3rem; text-align:center;">
-        start/end date.</span>
+        start/end date</span>
       </div>
 
         <div style="display:flex; align-items:center; gap:10px; margin:10px 0 6px 0;">
@@ -3252,27 +3255,27 @@ const userBalFormatted = formatUSDC(userBal);
         { <span id="detail-title"></span> }
       </div> -->
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        title: <span> <span id="detail-title"></span>
+        ● title: <span> <span id="detail-title"></span>
       </div>
 
       <div class="divider-container" id="hr_xxxxxx4">
-        <span class="divider-icon">✦</span>
+        <span class="divider-icon">●</span>
       </div>
       <div class="readonly2" style="text-align:center;">
         <span id="detail-description"></span>
       </div>
       <div class="divider-container" id="hr_xxxxxx5">
-        <span class="divider-icon">✦</span>
+        <span class="divider-icon">●</span>
       </div>
       
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        target: <span> <span id="detail-raised"></span>/<span id="detail-goal"></span> $USDC</span>
+        ● target: <span> <span id="detail-raised"></span>/<span id="detail-goal"></span> $USDC</span>
       </div>
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        created by: <span id="detail-creator"></span>
+        ● created by: <span id="detail-creator"></span>
       </div>
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
-        end at: <span id="detail-deadline"></span>
+        ● end at: <span id="detail-deadline"></span>
       </div>
 
       <div style="display:flex; flex-direction: column; align-items:center; gap:10px; margin:10px 0 6px 0;">
@@ -3324,7 +3327,7 @@ const userBalFormatted = formatUSDC(userBal);
 <!-- CAMPAIGN DETAILS -->
 
 <div class="divider-container" id="hr_xxx3">
-  <span class="divider-icon">✦</span>
+  <span class="divider-icon">●</span>
 </div>
 <div id="batesan_xxx5" style="height:10px;"></div>
 
@@ -3348,7 +3351,7 @@ const userBalFormatted = formatUSDC(userBal);
     <div 
       class="readonly2" style="font-size:1.1rem; flex: 1;"
     >
-      category filter:
+      ● category filter:
     </div>
     <button id="showcategorybuttonfilter"
       class="btn_op_rev2" style="font-size:1.1rem; margin-left: 0px;"
@@ -3364,7 +3367,7 @@ const userBalFormatted = formatUSDC(userBal);
     <div 
       class="readonly2" style="font-size:1.1rem; flex: 1;"
     >
-      status filter:
+      ● status filter:
     </div>
     <button id="showcampaignbuttonfilter"
       class="btn_op_rev2" style="font-size:1.1rem; margin-left: 0px;"
@@ -3378,7 +3381,7 @@ const userBalFormatted = formatUSDC(userBal);
 <div id="batesan_xxx3" style="height:10px;"></div>
 
 <div class="divider-container" id="hr_xxx4">
-  <span class="divider-icon">✦</span>
+  <span class="divider-icon">●</span>
 </div>
 
 <div id="batesan_xxx4" style="height:0px;"></div>
@@ -3441,7 +3444,7 @@ function setCheeein(category) {
     document.getElementById('unichain-sepoliachainbutton').classList.add("active");}
     else if (selectedChain === "avalanche-fuji") {
     document.getElementById('avalanche-fujichainbutton').classList.add("active");}
-    else if (selectedChain === "hyperevm-testnetc") {
+    else if (selectedChain === "hyperevm-testnet") {
     document.getElementById('hyperevm-testnetchainbutton').classList.add("active");}
     else if (selectedChain === "ink-sepolia") {
     document.getElementById('ink-sepoliachainbutton').classList.add("active");}

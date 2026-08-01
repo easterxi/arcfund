@@ -1,13 +1,17 @@
 :root {
-  --warna_tombol: #58a3e9;
-  --warna_tombol_penting: #ff0000;
-  --warna_text: rgb(0, 100, 200);
+  --warna_tombol: #ff8800;
+  --warna_border: #ff8800;
+  --warna_tombol_penting: #ff8800;
+  --warna_text: rgb(255, 255, 255);
+  --warna_text2: rgb(0, 0, 0);
+  --warna_text_dasar: rgb(255, 255, 255);
   --warna_bayangan_sorot: rgba(0, 255, 255, 0.6);
   --warna_bayangan_kotakan: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
   --warna_bayangan_text: 1px 1px 2px rgba(0,0,0,0.3);
   --warna_bayangan_drop: drop-shadow(1px 1px 2px black, 0 0 1px black, 0 0 1px black);
   --mbunder: 9999px;
   --mbunder_tenan: 50%;
+  --warna_background: rgb(0, 75, 125);
 }
 
 .main-container {
@@ -75,8 +79,8 @@
 * { margin:0; padding:0; box-sizing:border-box; }
 body {
   font-family: Arial, sans-serif;
-  background: white;
-  color: black;
+  background: var(--warna_background);
+  color: var(--warna_text_dasar);
   height: 100vh;
   overflow: auto;
   position: relative;
@@ -600,7 +604,7 @@ background: var(--warna_tombol);
 .option-btn-circle {
   
   background: white;
-  color: var(--warna_text);
+  color: var(--warna_text2);
   /* text-shadow: 1px 1px 2px black, 0 0 1px black; */
   text-shadow: var(--warna_bayangan_text);
   /*
@@ -620,7 +624,7 @@ background: var(--warna_tombol);
   padding: 10px 12px;
   margin: 4px;
   text-align: center;
-  font-weight: bold;
+  font-weight: normal;
   cursor: pointer;
   border-radius: 8px;
   flex: 1;
@@ -646,6 +650,7 @@ background: var(--warna_tombol);
     linear-gradient(var(--warna_tombol), var(--warna_tombol)) padding-box, /* Inner background color */
     linear-gradient(to right, var(--warna_tombol), #ffffff) border-box; /* Border gradient */
     
+  font-weight: bold;
   box-shadow: var(--warna_bayangan_kotakan);
 }
 .option-btn-circle:hover {text-shadow: 1px 1px 2px var(--warna_bayangan_sorot); box-shadow: 0 8px 16px 0 var(--warna_bayangan_sorot);}
@@ -982,7 +987,7 @@ select.rounded-select:hover {
 
 .inputan {
   background: rgb(255, 255, 255); /*rgba(0, 0, 0, 0.6); #f8f8f8;*/
-  border: 2px solid var(--warna_text);
+  border: 2px solid var(--warna_border);
   font-size: 1.3rem;
   text-align: center;
   padding: 10px;
@@ -995,15 +1000,15 @@ select.rounded-select:hover {
 
   background: 
     linear-gradient(#ffffff, #ffffff) padding-box, /* Inner background color */
-    linear-gradient(to right, var(--warna_text), var(--warna_text)) border-box; /* Border gradient */
+    linear-gradient(to right, var(--warna_border), var(--warna_border)) border-box; /* Border gradient */
 
-  color: var(--warna_text);
+  color: var(--warna_text2);
 
   box-shadow: var(--warna_bayangan_kotakan);
 }
 .inputanP {
   background: rgb(255, 255, 255); /*rgba(0, 0, 0, 0.6); #f8f8f8;*/
-  border: 2px solid var(--warna_text);
+  border: 2px solid var(--warna_border);
   font-size: 1.3rem;
   text-align: center;
   padding: 10px;
@@ -1016,16 +1021,16 @@ select.rounded-select:hover {
 
   background: 
     linear-gradient(#ffffff, #ffffff) padding-box, /* Inner background color */
-    linear-gradient(to right, var(--warna_text), var(--warna_text)) border-box; /* Border gradient */
+    linear-gradient(to right, var(--warna_border), var(--warna_border)) border-box; /* Border gradient */
 
-  color: var(--warna_text);
+  color: var(--warna_text2);
 
   box-shadow: var(--warna_bayangan_kotakan);
 }
 .inputan_ombo {
   font-family: Arial, sans-serif;
   background: rgb(255, 255, 255); /*rgba(0, 0, 0, 0.6); #f8f8f8;*/
-  border: 2px solid var(--warna_text);
+  border: 2px solid var(--warna_border);
   font-size: 1.3rem;
   text-align: center;
   padding-top: 10px;
@@ -1046,15 +1051,15 @@ select.rounded-select:hover {
 
   background: 
     linear-gradient(#ffffff, #ffffff) padding-box, /* Inner background color */
-    linear-gradient(to right, var(--warna_text), var(--warna_text)) border-box; /* Border gradient */
+    linear-gradient(to right, var(--warna_border), var(--warna_border)) border-box; /* Border gradient */
 
-  color: var(--warna_text);
+  color: var(--warna_text2);
 
   box-shadow: var(--warna_bayangan_kotakan);
 }
 .inputan_readonly {
   background: var(--warna_text); /*rgba(0, 0, 0, 0.6); #f8f8f8;*/
-  border: 2px solid rgb(255, 255, 255);
+  border: 2px solid var(--warna_border);
   font-size: 1.5rem;
   text-align: center;
   padding: 10px;
@@ -1066,10 +1071,10 @@ select.rounded-select:hover {
   text-shadow: var(--warna_bayangan_text);
 
   background: 
-    linear-gradient(var(--warna_text), var(--warna_text)) padding-box, /* Inner background color */
+    linear-gradient(var(--warna_border), var(--warna_border)) padding-box, /* Inner background color */
     linear-gradient(to right, #ffffff, #ffffff) border-box; /* Border gradient */
 
-  color: rgb(255, 255, 255);
+  color: var(--warna_text2);
 
 /* Make it completely non-interactive */
   /* pointer-events: none;           /* Disable all mouse events */
@@ -1084,7 +1089,7 @@ select.rounded-select:hover {
 }
 .readonly_txt {
   background: var(--warna_text); /*rgba(0, 0, 0, 0.6); #f8f8f8;*/
-  border: 2px solid rgb(255, 255, 255);
+  border: 2px solid var(--warna_border);
   font-size: 1.5rem;
   text-align: center;
   padding: 10px;
@@ -1096,10 +1101,10 @@ select.rounded-select:hover {
   text-shadow: var(--warna_bayangan_text);
 
   background: 
-    linear-gradient(var(--warna_text), var(--warna_text)) padding-box, /* Inner background color */
+    linear-gradient(var(--warna_border), var(--warna_border)) padding-box, /* Inner background color */
     linear-gradient(to right, #ffffff, #ffffff) border-box; /* Border gradient */
 
-  color: rgb(255, 255, 255);
+  color: var(--warna_text2);
 
 /* Make it completely non-interactive */
   pointer-events: none;           /* Disable all mouse events */
@@ -1124,7 +1129,7 @@ select.rounded-select:hover {
   /* text-shadow: 1px 1px 2px black, 0 0 1px black; */
   text-shadow: var(--warna_bayangan_text);
 
-  color: var(--warna_text);
+  color: var(--warna_text2);
 
 /* Make it completely non-interactive */
   pointer-events: none;           /* Disable all mouse events */
@@ -1137,7 +1142,7 @@ select.rounded-select:hover {
 }
 .readonly_txt22 {
   background: var(--warna_text);
-  border: 2px solid #ffffff;
+  border: 2px solid var(--warna_border);
   font-size: 1.3rem;
   text-align: center;
   padding: 10px;
@@ -1147,7 +1152,7 @@ select.rounded-select:hover {
   /* text-shadow: 1px 1px 2px black, 0 0 1px black; */
   text-shadow: var(--warna_bayangan_text);
 
-  color: rgb(255, 255, 255);
+  color: var(--warna_text2);
 
   box-shadow: var(--warna_bayangan_kotakan);
 
@@ -1210,12 +1215,12 @@ input[readonly_txt2] {
 .divider-container::after {
   content: "";
   flex: 1;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid #ffffff;
 }
 
 .divider-icon {
   padding: 0 0px;
-  color: #666;
+  color: #ffffff;
   font-size: 16px;
 }
 
@@ -1299,7 +1304,7 @@ input[readonly_txt2] {
   width: 100%;
   height: 100%;
 
-  background: rgba(0, 0, 0, 0.9);
+  background: rgba(255, 255, 255, 0.9);
 
   display: flex;
   flex-direction: column;
