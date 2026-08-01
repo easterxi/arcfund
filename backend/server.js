@@ -2734,8 +2734,11 @@ app.post(
 
             } = req.body;
 
-            console.log("campaignAddress =", campaignAddress);
-            
+            console.log(
+    "Backend withdrawn before:",
+    await campaign.withdrawn()
+);
+
             const campaign =
                 new ethers.Contract(
 
@@ -2750,21 +2753,6 @@ app.post(
             //
             // Verify creator
             //
-
-            console.log(
-    "Connected chain:",
-    await provider.getNetwork()
-);
-
-console.log(
-    "Campaign:",
-    campaignAddress
-);
-
-console.log(
-    "Code:",
-    await provider.getCode(campaignAddress)
-);
 
             const creator =
                 await campaign.creator();
@@ -2888,6 +2876,11 @@ console.log(
                     token: "USDC"
 
                 });
+
+                console.log(
+    "Backend withdrawn after:",
+    await campaign.withdrawn()
+);
 
 return res.send(
     JSON.stringify(

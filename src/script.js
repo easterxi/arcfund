@@ -4596,10 +4596,6 @@ window.withdrawCampaign = async function (campaignAddress) {
             //0
         //);
 
-        console.log("selectedCampaignXXX =", selectedCampaign);
-        console.log("campaignAddressXXX =", campaignAddress);
-        console.log("userAddress =", userAddress);
-
         const withdrawTx =
             await campaign.withdrawToTreasury();
 
@@ -4655,7 +4651,7 @@ const receipt =
         }
 
         updateBalances();
-
+        
         hideLoading();
 
         if (result.bridged) {
