@@ -2870,15 +2870,19 @@ app.post(
 
                 });
 
-            return res.json({
-
-                success: true,
-
-                bridged: true,
-
-                bridgeResult
-
-            });
+return res.send(
+    JSON.stringify(
+        {
+            success: true,
+            bridged: true,
+            bridgeResult
+        },
+        (_, v) =>
+            typeof v === "bigint"
+                ? v.toString()
+                : v
+    )
+);
 
         } catch (e) {
 
