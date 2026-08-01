@@ -2722,8 +2722,6 @@ app.post(
 
     async (req, res) => {
 
-      console.log("campaignAddressYYY =", campaignAddress);
-
         try {
 
             const {
