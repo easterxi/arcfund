@@ -2751,6 +2751,21 @@ app.post(
             // Verify creator
             //
 
+            console.log(
+    "Connected chain:",
+    await provider.getNetwork()
+);
+
+console.log(
+    "Campaign:",
+    selectedCampaign
+);
+
+console.log(
+    "Code:",
+    await provider.getCode(selectedCampaign)
+);
+
             const creator =
                 await campaign.creator();
 
