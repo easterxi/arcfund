@@ -1519,7 +1519,7 @@ async function connectWallet() {
 function showScreen1() {
   document.getElementById('root').innerHTML = `
     <div class="container" style="display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:0px;background:transparent;padding:0px"; padding-top:40px>
-      <img src="/logo/mascot2 copyfit.png"
+      <img src="/logo/mascot2 copyfitWHITE.png"
            alt="sumbangsih_mascot" 
            style="margin-top:40px; margin-bottom:30px; max-width:480px; width:90%; height:auto;">
       
@@ -2662,7 +2662,7 @@ const userBalFormatted = formatUSDC(userBal);
 
       <div style="display:flex;justify-content:flex-start;gap:8px;align-items:center;margin-bottom:8px;">
         <div style="margin:0" class="readonly33">
-         <img src="/logo/judul2 copyfit.png"
+         <img src="/logo/judul2 copyfitWHITE.png"
          style="width:${logoWidth}; height:auto; position: relative; top: 0px;"></div>
         <div onclick="window.open('https://www.google.com', '_blank', 'noopener,noreferrer');" class="btn_smol_ns">
         📚
@@ -3407,7 +3407,7 @@ const userBalFormatted = formatUSDC(userBal);
     </div> <!-- container end -->
 
   <div id="loadingScreen">
-  <img src="/logo/usdc_logo.png" width="120">
+  <img src="/logo/usdc_logoMOD.png" width="120">
   <div>
   </div>
   </div>
