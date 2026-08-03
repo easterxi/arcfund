@@ -48,6 +48,12 @@ window.debugBet = async function (id = 1) {
 
 //window.Buffer = Buffer;
 
+const params =
+    new URLSearchParams(window.location.search);
+
+const campaignFromUrl =
+    params.get("campaign");
+    
 import process from "process";
 
 window.process = process;
@@ -800,6 +806,29 @@ async function updateLivePrice(textboxId) {
   //if (el) el.value = price.toFixed(2);
 }
 
+async function refreshCampaignCacheFav() {
+favoriteCampaigns = [];
+
+if (userAddress) {
+
+    const response = await fetch(
+
+        `${CONFIG.backendUrl}/api/favoritesss?userAddress=${userAddress}`
+
+    );
+
+    const data = await response.json();
+
+    favoriteCampaigns =
+
+        data.favorites.map(
+
+            a => a.toLowerCase()
+
+        );
+}
+}
+
 // LOAD CAMPAIGN //
 //async function loadCampaigns() {
 async function refreshCampaignCache() {
@@ -1135,8 +1164,18 @@ if (displayedCount > 0) {
 
 campaignList.innerHTML = html;
 */
+}
+
+async function openCampaignFromUrl() {
+
+    if (!campaignFromUrl) return;
+
+    await hidemainbutton();
+    await hidemainbutton2(); 
+    await openCampaign(campaignFromUrl);
 
 }
+
 function loadCampaigns() {
 
     const campaignList =
@@ -1407,7 +1446,7 @@ function setCampaignFilter(filter) {
 
     if (filter === "favorite")
     {
-    document.getElementById('showcampaignbuttonfilter').textContent = "♥️";
+    document.getElementById('showcampaignbuttonfilter').textContent = "⭐";
     }
     else {
       document.getElementById('showcampaignbuttonfilter').textContent = filter;
@@ -1579,6 +1618,26 @@ window.selectAsset = (asset) => {
   showScreen2();   // This will restart everything cleanly
 };
 
+function getCampaignLink(campaignAddress) {
+
+    return `${window.location.origin}/?campaign=${campaignAddress}`;
+
+}
+
+window.copyCampaignLink = async function () {
+
+    const link = getCampaignLink(selectedCampaign);
+
+    await navigator.clipboard.writeText(link);
+
+    showToast(
+        "✅ Campaign link copied.",
+        3000,
+        0
+    );
+
+};
+
 window.openCampaign = async function (
     campaignAddress
 ) {
@@ -1615,6 +1674,10 @@ const provider = new ethers.JsonRpcProvider(
 
     selectedCampaign =
         campaignAddress;
+
+    //document.getElementById(
+        //"detail-address"
+    //).innerText = selectedCampaign;
 
     document.getElementById(
         "detail-title"
@@ -1757,10 +1820,16 @@ document
 
         data.favorited
 
-            ? "♥️"
+            ? "⭐"
 
-            : "🖤";
+            : "★";
             
+            document
+    .getElementById(
+        "favoriteButton"
+    )
+    .button.style.color = data.favorited ? "#000000" : "#000000";
+
     reset_screen()
 };
 
@@ -2672,13 +2741,31 @@ const userBalFormatted = formatUSDC(userBal);
           ${shortAddress}
         </div>
       </div>
-      <div id="pickachain" class="readonly2X" style="font-size:1.8rem; text-align:center;">
-        { pick a chain }</span>
-      </div>
 
+      <!--
+      <div id="pickachain" class="readonly2X" style="font-size:1.8rem; text-align:center;">
+        { pick chain }</span>
+      </div>
+-->
+
+          <div id="gantichain">
+    <div class="flex-row" style="align-items:center; text-align:center;">
+      <div id="cheeeinname" class="readonly2plus" style="font-size:1.3rem; flex: 1;"
+        on @${displayname[selectedChain]}</span>
+      </div>
+<button
+    class="btn_op_rev2" style="font-size:1.1rem; width:228px !important;"
+    onclick="showChainlist()">
+        chain list</span>
+  </button>
+    </div>
+    </div>
+    
+    <!--
       <div id="cheeeinname" class="readonly2X" style="font-size:1.3rem; text-align:center;">
         on @${displayname[selectedChain]}</span>
       </div>
+-->
 
 <!--
 <div
@@ -2735,7 +2822,7 @@ const userBalFormatted = formatUSDC(userBal);
   >
 
       <div class="readonly2" style="font-size:1.3rem; text-align:center;">
-        { pick a chain }</span>
+        { pick chain }</span>
       </div>
 
     <div class="flex-row" style="flex-direction: column;">
@@ -2845,7 +2932,7 @@ const userBalFormatted = formatUSDC(userBal);
   >
 
       <div class="readonly2" style="font-size:1.3rem; text-align:center;">
-        { pick a category }</span>
+        { pick category }</span>
       </div>
 
     <div class="flex-row" style="flex-direction: column;">
@@ -2926,7 +3013,7 @@ const userBalFormatted = formatUSDC(userBal);
   >
 
       <div class="readonly2" style="font-size:1.3rem; text-align:center;">
-        { pick a category }</span>
+        { pick category }</span>
       </div>
 
     <div class="flex-row" style="flex-direction: column;">
@@ -3014,7 +3101,7 @@ const userBalFormatted = formatUSDC(userBal);
   >
 
       <div class="readonly2" style="font-size:1.3rem; text-align:center;">
-        { pick a filter }</span>
+        { pick filter }</span>
       </div>
 
     <div id="campaign-button" class="flex-row" style="flex-direction: column;">
@@ -3040,7 +3127,7 @@ const userBalFormatted = formatUSDC(userBal);
   <div
     class="option-btn-circle" id="favCBtn" style="font-size:1.3rem;"
     onclick="setCampaignFilter('favorite')">
-    ♥️</span>
+    ⭐</span>
   </div>
 
   <div
@@ -3069,7 +3156,7 @@ const userBalFormatted = formatUSDC(userBal);
 
 
 
-
+<!--
 <div id="choose-chain-button" class="flex-row" style="align-items:center;">
 
   <div id="arc-testnetchainbutton2" 
@@ -3098,6 +3185,7 @@ const userBalFormatted = formatUSDC(userBal);
 
 
 </div>
+-->
 
 <div style="height:20px;"></div>
 
@@ -3118,7 +3206,7 @@ const userBalFormatted = formatUSDC(userBal);
 <div id="new-campaign-button" style="align-items:center; text-align:center;">
   <button
     class="btn_op_rev2" style="font-size:1.1rem;"
-    onclick="hidemainbutton(); hidemainbutton2(); showCreateCampaignScreen()">
+    onclick="hidechainchainbutton(); hidemainbutton(); hidemainbutton2(); showCreateCampaignScreen()">
         create campaign</span>
   </button>
 </div>
@@ -3254,10 +3342,28 @@ const userBalFormatted = formatUSDC(userBal);
       <!-- <div class="readonly2" style="text-align:center;">
         { <span id="detail-title"></span> }
       </div> -->
+
+      <!-- <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
+        ● id: <span> <span id="detail-address"></span>
+      </div> -->
+
+      <div style="height:10px;"></div>
+          <div class="flex-row" style="align-items:center; text-align:center;">
+<button
+    class="btn_op_rev2" style="font-size:1.1rem; width:228px !important;"
+    onclick="copyCampaignLink()">
+        copy campaign link</span>
+  </button>
+    </div>
+      <div style="height:10px;"></div>
+          <div class="divider-container" id="hr_xxxxxx4">
+        <span class="divider-icon">●</span>
+      </div>
+
       <div class="readonly2" style="display:flex; justify-content:space-between; align-items:center;">
         ● title: <span> <span id="detail-title"></span>
       </div>
-
+    
       <div class="divider-container" id="hr_xxxxxx4">
         <span class="divider-icon">●</span>
       </div>
@@ -3282,7 +3388,7 @@ const userBalFormatted = formatUSDC(userBal);
 
         <input type="text"
         inputmode="numeric"
-        placeholder="how much?"
+        placeholder="fund how much?"
         id="donation-amount"
         class="inputan"
         value=""
@@ -3309,9 +3415,9 @@ const userBalFormatted = formatUSDC(userBal);
 
     <button id="favoriteButton"
     class="btn_op_rev2P" style="font-size:1.1rem;"
-    onclick="toggleFavorite()">
+    onclick="toggleFavorite();">
 
-    🖤
+    ★
 
     </button>
 
@@ -3420,9 +3526,9 @@ function setCheeein(category) {
     document.getElementById("cheeeinname").textContent = `on @${displayname[selectedChain]}`;
 
     document.getElementById('arc-testnetchainbutton').classList.remove("active");
-    document.getElementById('arc-testnetchainbutton2').classList.remove("active");
+    //document.getElementById('arc-testnetchainbutton2').classList.remove("active");
     document.getElementById('base-sepoliachainbutton').classList.remove("active");
-    document.getElementById('base-sepoliachainbutton2').classList.remove("active");
+    //document.getElementById('base-sepoliachainbutton2').classList.remove("active");
     document.getElementById('eth-sepoliachainbutton').classList.remove("active");
     document.getElementById('arbitrum-sepoliachainbutton').classList.remove("active");
     document.getElementById('unichain-sepoliachainbutton').classList.remove("active");
@@ -3432,10 +3538,12 @@ function setCheeein(category) {
 
     if (selectedChain === "arc-testnet") {
     document.getElementById('arc-testnetchainbutton').classList.add("active");
-    document.getElementById('arc-testnetchainbutton2').classList.add("active");}
+    //document.getElementById('arc-testnetchainbutton2').classList.add("active");
+    }
     else if (selectedChain === "base-sepolia") {
     document.getElementById('base-sepoliachainbutton').classList.add("active");
-    document.getElementById('base-sepoliachainbutton2').classList.add("active");}
+    //document.getElementById('base-sepoliachainbutton2').classList.add("active");
+    }
     else if (selectedChain === "eth-sepolia") {
     document.getElementById('eth-sepoliachainbutton').classList.add("active");}
     else if (selectedChain === "arbitrum-sepolia") {
@@ -3643,6 +3751,7 @@ formatDateInput({ target: inputdate2 });
 }
 
 async function toggleFavorite() {
+showLoading();
 
     const button = document.getElementById(
 
@@ -3652,7 +3761,7 @@ async function toggleFavorite() {
 
     const isFavorite =
 
-        button.innerText === "♥️";
+        button.innerText === "⭐";
 
     const endpoint = isFavorite
 
@@ -3691,14 +3800,25 @@ async function toggleFavorite() {
 
     if (result.success) {
 
+      await showHomeScreenRefreshFav(); 
+
+      hideLoading();
+
         button.innerText =
 
             isFavorite
 
-                ? "🖤"
+                ? "★"
 
-                : "♥️";
+                : "⭐";
+
+        button.style.color = data.favorited ? "#000000" : "#000000";
+        
     }
+    else {
+    hideLoading();
+    }
+    
 }
 
 window.toggleFavorite = toggleFavorite;
@@ -3815,7 +3935,7 @@ async function showScreen2NEXT() {
   >
 
       <div class="readonly2" style="font-size:1.3rem; text-align:center;">
-        { pick a chain }</span>
+        { pick chain }</span>
       </div>
 
     <div class="flex-row" style="flex-direction: column;">
@@ -4349,6 +4469,8 @@ let isPredictionStarted = false;
 
 window.showCreateCampaignScreen = function () {
 
+    reset_screen() 
+
   //document.getElementById("home-screen").style.display = "none";
 
   document.getElementById("campaign-button").classList.add("hidden");
@@ -4360,7 +4482,7 @@ window.showCreateCampaignScreen = function () {
     "create-campaign-screen"
   ).style.display = "block";
 
-  reset_screen() 
+  //reset_screen() 
 };
 
 function showHomeScreenRefresh() {
@@ -4369,6 +4491,19 @@ function showHomeScreenRefresh() {
     showHomeScreen();
 }
 window.showHomeScreenRefresh = showHomeScreenRefresh;
+
+function showHomeScreenRefreshTotal() {
+    refreshCampaignCache()
+    loadCampaigns();
+
+    showHomeScreen();
+}
+window.showHomeScreenRefreshTotal = showHomeScreenRefreshTotal;
+
+function showHomeScreenRefreshFav() {
+    refreshCampaignCacheFav()
+}
+window.showHomeScreenRefreshFav = showHomeScreenRefreshFav;
 
 function focusing() {
         document
@@ -4398,10 +4533,20 @@ window.showHomeScreen = function () {
   document.getElementById("endedSection").classList.remove("hidden");
   document.getElementById("new-campaign-button").classList.remove("hidden");
   
+  showchainchainbutton(); 
   showmainbutton();
 
   focusing();
 };
+
+window.showchainchainbutton = function () {
+  //document.getElementById("pickachain").classList.remove("hidden");
+  document.getElementById("gantichain").classList.remove("hidden");
+}
+window.hidechainchainbutton = function () {
+  //document.getElementById("pickachain").classList.add("hidden");
+  document.getElementById("gantichain").classList.add("hidden");
+}
 
 window.showmainbutton = function () {
   document.getElementById("batesan_xxx").classList.remove("hidden");
@@ -4413,8 +4558,8 @@ window.showmainbutton = function () {
   document.getElementById("hr_xxx3").classList.remove("hidden");
   document.getElementById("hr_xxx4").classList.remove("hidden");
   document.getElementById("batesan").classList.remove("hidden");
-  document.getElementById("pickachain").classList.remove("hidden");
-  document.getElementById("choose-chain-button").classList.remove("hidden");
+  //document.getElementById("pickachain").classList.remove("hidden");
+  //document.getElementById("choose-chain-button").classList.remove("hidden");
   document.getElementById("campaign-titletitle").classList.remove("hidden");
 
   document.getElementById("campaign-button").classList.remove("hidden");
@@ -4429,8 +4574,8 @@ window.showmainbutton = function () {
 }
 window.hidemainbutton = function () {
   document.getElementById("batesan").classList.add("hidden");
-  document.getElementById("pickachain").classList.add("hidden");
-  document.getElementById("choose-chain-button").classList.add("hidden");
+  //document.getElementById("pickachain").classList.add("hidden");
+  //document.getElementById("choose-chain-button").classList.add("hidden");
   document.getElementById("campaign-titletitle").classList.add("hidden");
 
   document.getElementById("campaign-button").classList.add("hidden");
@@ -6154,7 +6299,36 @@ function resetGame() {
 }
 
 // ==================== INIT ====================
-document.addEventListener('DOMContentLoaded', showScreen1);
+document.addEventListener("DOMContentLoaded", async () => {
+
+    if (window.ethereum) {
+
+        const accounts = await window.ethereum.request({
+            method: "eth_accounts"
+        });
+
+        if (accounts.length > 0) {
+
+            userAddress = accounts[0];
+
+            provider = new ethers.BrowserProvider(window.ethereum);
+            signer = await provider.getSigner();
+
+            arcAdapter = await getArcAdapter();
+
+            await showScreen2();
+
+            await refreshCampaignCache();
+
+            await openCampaignFromUrl();
+            
+            return;
+        }
+    }
+
+    showScreen1();
+
+});
 
 window.connectWallet = connectWallet;
 window.disconnectWallet = disconnectWallet;

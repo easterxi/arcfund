@@ -5,10 +5,10 @@
   --warna_text: rgb(255, 255, 255);
   --warna_text2: rgb(0, 0, 0);
   --warna_text_dasar: rgb(255, 255, 255);
-  --warna_bayangan_sorot: rgba(0, 255, 255, 0.6);
-  --warna_bayangan_kotakan: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  --warna_bayangan_sorot: 1px 1px 2px rgba(0, 255, 255, 0.6); /*rgba(0, 255, 255, 0.6);*/
+  --warna_bayangan_kotakan: none; /*0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);*/
   --warna_bayangan_text: 1px 1px 2px rgba(0,0,0,0.3);
-  --warna_bayangan_drop: drop-shadow(1px 1px 2px black, 0 0 1px black, 0 0 1px black);
+  --warna_bayangan_drop: none; /*drop-shadow(1px 1px 2px black, 0 0 1px black, 0 0 1px black);*/
   --mbunder: 9999px;
   --mbunder_tenan: 50%;
   --warna_background: rgb(0, 75, 125);
@@ -925,6 +925,21 @@ select.rounded-select:hover {
   color: var(--warna_text);
 }
 
+.readonly2plus {
+  background: transparent; /*#f8f8f8;*/
+  border: none; /*2px solid #ddd*/
+  font-size: 1.1rem;
+  text-align: left;
+  padding: 10px;
+  width: 100%;
+  margin: 6px 0;
+  border-radius: 0px;
+  /* text-shadow: 1px 1px 2px black, 0 0 1px black; */
+  text-shadow: var(--warna_bayangan_text);
+
+  color: var(--warna_text);
+}
+
 .readonly2X {
   background: transparent; /*#f8f8f8;*/
   border: none; /*2px solid #ddd*/
@@ -1230,6 +1245,11 @@ input[readonly_txt2] {
   }
   .readonly2 {
     font-size: 16px;
+  }
+  .readonly2plus {
+    font-size: 16px;
+    align-items:center;
+    text-align:center;
   }
   .readonly2X {
     font-size: 16px;
