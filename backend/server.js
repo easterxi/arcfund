@@ -2459,11 +2459,6 @@ app.post("/api/deposit", async (req, res) => {
 
         } = req.body;
 
-console.log("deposit request:", req.body);
-
-console.log("chain =", chain);
-console.log("txHash =", txHash);
-
         const provider = providers[chain];
 
         const receipt =

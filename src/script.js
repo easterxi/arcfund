@@ -6313,6 +6313,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             userAddress = accounts[0];
 
+            changeChain('arc-testnet')
+            
             provider = new ethers.BrowserProvider(window.ethereum);
             signer = await provider.getSigner();
 
