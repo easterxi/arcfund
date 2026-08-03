@@ -1894,6 +1894,67 @@ window.changeChain = async function(chainKey) {
   }
 };
 
+window.changeChain2 = async function(chainKey) {
+
+  selectedChain = chainKey;
+  selectedChainX  = chainKey;
+  
+  const chain = CONFIG.chains[chainKey];
+
+  try {
+
+    // Add chain to wallet if needed
+    await window.ethereum.request({
+      method: "wallet_addEthereumChain",
+      params: [{
+        chainId: chain.chainId,
+        chainName: chain.name,
+        rpcUrls: [chain.rpcUrl],
+        nativeCurrency: {
+          name: "ETH",
+          symbol: "ETH",
+          decimals: 18
+        },
+        blockExplorerUrls: [chain.explorer]
+      }]
+    });
+
+    // Switch wallet to selected chain
+    await window.ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: chain.chainId }]
+    });
+
+    // Refresh ethers provider
+    provider = new ethers.BrowserProvider(window.ethereum);
+    signer = await provider.getSigner();
+
+    jenengechain = chain.name;
+    //alert(`✅ Switched to ${chain.name}.`);
+
+    //await showScreen2();
+
+    //await refreshCampaignCache();
+
+    //setCheeein(selectedChain);
+
+    //await loadCampaigns();
+
+    //showHomeScreen();
+
+    updateBalances();
+
+  } catch (err) {
+    console.error(err);
+    //alert("❌ Chain switch failed.");
+    showToast(
+    "❌ Chain switch failed.",
+    3000,
+    0
+    );
+  }
+};
+
 // Dynamic price title
 function updatePriceTitle() {
   const titleEl = document.getElementById('priceTitle');
@@ -6317,7 +6378,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
             userAddress = accounts[0];
 
-            changeChain('arc-testnet')
+            changeChain2('arc-testnet')
             
             provider = new ethers.BrowserProvider(window.ethereum);
             signer = await provider.getSigner();
