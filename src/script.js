@@ -3804,6 +3804,8 @@ showLoading();
 
       hideLoading();
 
+      await new Promise(resolve => setTimeout(resolve, 1000));
+
         button.innerText =
 
             isFavorite
