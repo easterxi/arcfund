@@ -6323,6 +6323,15 @@ document.addEventListener("DOMContentLoaded", async () => {
             await refreshCampaignCache();
 
             await openCampaignFromUrl();
+
+    console.log("Arc Adapter:", arcAdapter);
+
+    //alert(`✅ Wallet connected: ${userAddress.slice(0,6)}...${userAddress.slice(-4)}.`);
+    showToast(
+    `✅ Wallet reconnected: ${userAddress.slice(0,6)}...${userAddress.slice(-4)}`,
+    3000,
+    0
+    );
             
             return;
         }
