@@ -1828,7 +1828,7 @@ document
     .getElementById(
         "favoriteButton"
     )
-    .button.style.color = data.favorited ? "#000000" : "#000000";
+    .style.color = data.favorited ? "#000000" : "#000000";
 
     reset_screen()
 };
@@ -3814,7 +3814,7 @@ showLoading();
 
                 : "⭐";
 
-        button.style.color = data.favorited ? "#000000" : "#000000";
+        button.style.color = isFavorite ? "#000000" : "#000000";
         
     }
     else {

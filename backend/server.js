@@ -2816,8 +2816,11 @@ if (
             // Amount
             //
 
-            const amount =
+            const fullamount =
                 await campaign.currentAmount();
+
+const fee = fullamount * 5n / 100n;
+const amount = fullamount - fee;
 
     const tx =
     await campaign.withdrawToTreasury();
