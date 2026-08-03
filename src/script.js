@@ -1828,7 +1828,7 @@ document
     .getElementById(
         "favoriteButton"
     )
-    .style.color = data.favorited ? "#000000" : "#000000";
+    .button.style.color = data.favorited ? "#000000" : "#000000";
 
     reset_screen()
 };
