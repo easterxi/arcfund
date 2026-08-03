@@ -4822,6 +4822,8 @@ console.log(
 // Sign message
 //
 
+changeChain(selectedChain)
+
 const provider =
     new ethers.BrowserProvider(
         window.ethereum
@@ -5035,7 +5037,9 @@ if (amount > (yanggoalraw - yangraisedraw)) {
 }
 
         showLoading();
-        
+
+        changeChain(selectedChain)
+
         const chain =
             CONFIG.chains[
                 selectedChain
